@@ -1,450 +1,2626 @@
-<!doctype html>
-<html lang="zh-Hant">
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="藍天咖啡，為手沖咖啡愛好者挑選當季精品咖啡豆，讓每一杯都清澈、明亮、值得細品。">
-  <title>藍天咖啡｜讓風味，慢慢抵達</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@600;700;800;900&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --navy: #062742;
-      --blue: #0c5b95;
-      --sky: #75c6e8;
-      --mist: #eaf5f7;
-      --cream: #fbfaf6;
-      --ink: #122534;
-      --muted: #607482;
-      --line: #d7e4e8;
-      --sand: #e5b66b;
-      --shadow: 0 18px 50px rgba(6, 39, 66, .13);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MakeBit | 頂級加密貨幣交易平台 - 即時行情・現貨槓桿・K線深度・手續費管理・API・深淺科技風</title>
+    <meta name="description" content="MakeBit 專為加密貨幣投資者、數位資產交易者及區塊鏈使用者打造。支援 BTC、ETH、USDT 等現貨與槓桿交易、K線與深度分析、資產充提、手續費管理、API 串接及 2FA 安全驗證，支援深淺色自由切換與全響應式交易介面。">
+    <style>
+        /* CSS 變數系統：支援黃/黑/深灰與白色自由切換，搭配科技藍與操作綠 */
+        :root[data-theme="dark"] {
+            --bg-base: #07090e;
+            --bg-surface: #0e121a;
+            --bg-card: #141924;
+            --bg-card-hover: #1b2230;
+            --bg-input: #090c13;
+            --border-color: #21293a;
+            --border-light: #303b54;
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      background: var(--cream);
-      font: 16px/1.7 "Noto Sans TC", sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
-    button { cursor: pointer; }
-    .wrap { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0 0 18px;
-      color: var(--blue);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .18em;
-    }
-    .eyebrow::before { width: 28px; height: 1px; background: currentColor; content: ""; }
-    .section-title {
-      margin: 0;
-      font: 800 clamp(30px, 4vw, 46px)/1.28 "Noto Serif TC", serif;
-      letter-spacing: .045em;
-    }
-    .text-blue { color: var(--blue); }
-    .button, .outline-link {
-      display: inline-flex;
-      min-height: 50px;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 23px;
-      border: 1px solid transparent;
-      border-radius: 2px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: .04em;
-      transition: transform .25s ease, background-color .25s ease, color .25s ease, border-color .25s ease;
-    }
-    .button:hover, .outline-link:hover { transform: translateY(-2px); }
-    .button--sand { color: var(--navy); background: var(--sand); }
-    .button--sand:hover { background: #f1cb8b; }
-    .button--dark { color: var(--navy); background: #fff; }
-    .outline-link { border-color: rgba(255,255,255,.72); color: #fff; }
-    .outline-link:hover { color: var(--navy); background: #fff; }
-    :focus-visible { outline: 3px solid var(--sky); outline-offset: 4px; }
+            --text-primary: #f0f4f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #5e6d87;
 
-    /* Header & hero */
-    .site-header { position: absolute; z-index: 20; top: 0; left: 0; width: 100%; border-bottom: 1px solid rgba(255,255,255,.28); }
-    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { display: inline-flex; align-items: center; gap: 11px; color: #fff; }
-    .brand-mark { width: 29px; height: 29px; display: grid; place-items: center; border: 1px solid var(--sky); border-radius: 50%; color: var(--sky); font: 700 16px/1 "Playfair Display", serif; }
-    .brand-copy { display: grid; line-height: 1.05; }
-    .brand-copy strong { font-size: 13px; letter-spacing: .08em; }
-    .brand-copy small { margin-top: 4px; font-size: 8px; letter-spacing: .18em; opacity: .7; }
-    .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 31px); }
-    .nav-links a { position: relative; color: #fff; font-size: 13px; font-weight: 500; white-space: nowrap; }
-    .nav-links a:not(.nav-cta)::after { position: absolute; right: 0; bottom: -5px; left: auto; width: 0; height: 1px; background: var(--sky); content: ""; transition: width .25s ease; }
-    .nav-links a:not(.nav-cta):hover::after { right: auto; left: 0; width: 100%; }
-    .nav-links .nav-cta { padding: 8px 13px; border: 1px solid rgba(255,255,255,.72); }
-    .nav-links .nav-cta:hover { color: var(--navy); background: #fff; }
-    .menu-toggle { display: none; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.7); color: #fff; background: transparent; font-size: 23px; line-height: 1; }
+            --gold: #f0b90b;
+            --gold-hover: #fcd535;
+            --gold-dim: rgba(240, 185, 11, 0.15);
 
-    .hero { position: relative; min-height: 704px; overflow: hidden; color: #fff; background: var(--navy); isolation: isolate; }
-    .hero::before { position: absolute; z-index: -2; top: -320px; right: -210px; width: 810px; height: 810px; border-radius: 50%; background: radial-gradient(circle, rgba(117,198,232,.38), rgba(12,91,149,.18) 38%, transparent 69%); content: ""; }
-    .hero::after { position: absolute; z-index: -1; right: 12%; bottom: -430px; width: 780px; height: 780px; border: 1px solid rgba(117,198,232,.18); border-radius: 50%; box-shadow: 0 0 0 65px rgba(117,198,232,.035), 0 0 0 154px rgba(117,198,232,.025); content: ""; }
-    .hero-grid { min-height: 704px; display: grid; grid-template-columns: 1.02fr .98fr; gap: 45px; align-items: center; padding: 122px 0 72px; }
-    .hero-copy { position: relative; z-index: 2; }
-    .hero .eyebrow { color: var(--sky); }
-    .hero h1 { max-width: 650px; margin: 0 0 23px; font: 800 clamp(42px, 5.5vw, 68px)/1.22 "Noto Serif TC", serif; letter-spacing: .05em; }
-    .hero h1 span { color: var(--sky); }
-    .hero-lede { max-width: 500px; margin: 0; color: rgba(255,255,255,.79); font-size: 16px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 31px; }
-    .hero-note { margin: 31px 0 0; color: rgba(255,255,255,.55); font: 600 11px/1.5 "Playfair Display", serif; letter-spacing: .16em; }
-    .scroll-cue { position: absolute; bottom: 35px; left: 0; display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.63); font-size: 10px; font-weight: 600; letter-spacing: .18em; }
-    .scroll-cue::before { width: 38px; height: 1px; background: var(--sky); content: ""; }
+            --blue: #2962ff;
+            --blue-hover: #3872ff;
+            --blue-dim: rgba(41, 98, 255, 0.15);
 
-    .hero-art { position: relative; align-self: stretch; min-height: 470px; overflow: hidden; }
-    .hero-art .sun { position: absolute; top: 52px; right: 54px; width: clamp(138px, 18vw, 200px); aspect-ratio: 1; border-radius: 50%; background: #b9e8f5; box-shadow: 0 0 0 27px rgba(117,198,232,.09), 0 0 0 59px rgba(117,198,232,.045); }
-    .mountain { position: absolute; right: -11%; bottom: 6px; width: 116%; height: 260px; transform: skewY(-9deg); transform-origin: right bottom; background: linear-gradient(146deg, transparent 0 27%, rgba(61,145,184,.36) 27.3% 48%, rgba(17,97,143,.77) 48.3%); clip-path: polygon(0 62%, 28% 20%, 44% 57%, 68% 4%, 100% 57%, 100% 100%, 0 100%); }
-    .mountain--back { right: 13%; bottom: 98px; width: 108%; height: 220px; opacity: .46; transform: skewY(-4deg); background: #2a81ae; clip-path: polygon(0 84%, 31% 30%, 45% 62%, 66% 9%, 100% 66%, 100% 100%, 0 100%); }
-    .horizon { position: absolute; right: -4%; bottom: 0; width: 116%; height: 112px; background: linear-gradient(90deg, rgba(7,45,75,.5), #0d5684); transform: skewY(-4deg); }
-    .coffee-vessel { position: absolute; z-index: 4; right: 18%; bottom: 36px; width: 192px; height: 274px; filter: drop-shadow(18px 22px 14px rgba(0,0,0,.22)); }
-    .vessel-neck { position: absolute; top: 0; left: 62px; width: 68px; height: 42px; border: 7px solid #b3e2ef; border-bottom: 0; border-radius: 50% 50% 0 0; background: rgba(6,39,66,.62); }
-    .vessel-body { position: absolute; top: 33px; left: 18px; width: 150px; height: 212px; border: 7px solid #b3e2ef; border-radius: 31% 31% 42% 42% / 12% 12% 37% 37%; background: linear-gradient(90deg, rgba(30,112,151,.9), rgba(5,35,60,.9) 45%, rgba(83,167,198,.8)); overflow: hidden; }
-    .vessel-body::before { position: absolute; top: 15px; left: 0; width: 100%; height: 5px; background: rgba(197,237,244,.8); box-shadow: 0 48px rgba(197,237,244,.25), 0 95px rgba(197,237,244,.18), 0 145px rgba(197,237,244,.13); content: ""; }
-    .vessel-body::after { position: absolute; top: 5px; left: 48%; width: 24px; height: 200px; border-radius: 50%; background: rgba(218,247,251,.17); content: ""; }
-    .vessel-handle { position: absolute; right: 0; bottom: 49px; width: 62px; height: 98px; border: 10px solid #a9dce9; border-left: 0; border-radius: 0 53px 53px 0; }
-    .art-label { position: absolute; z-index: 5; right: 0; bottom: 64px; display: grid; gap: 3px; color: rgba(255,255,255,.73); font-size: 11px; letter-spacing: .1em; text-align: right; }
-    .art-label strong { color: var(--sky); font: 700 22px/1 "Playfair Display", serif; }
+            --green: #0ecb81;
+            --green-dim: rgba(14, 203, 129, 0.14);
+            --red: #f6465d;
+            --red-dim: rgba(246, 70, 93, 0.14);
 
-    /* Story */
-    .story { padding: 118px 0; background: #fff; }
-    .story-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(45px, 8vw, 105px); align-items: center; }
-    .story-visual { position: relative; min-height: 416px; }
-    .seal { position: absolute; top: 0; left: 0; width: 310px; height: 310px; display: grid; place-items: center; border: 1px solid #a8d2df; border-radius: 50%; color: var(--blue); background: radial-gradient(circle at 35% 30%, #fff 0, #eaf6f8 68%, #d9edf1 100%); }
-    .seal::before, .seal::after { position: absolute; border: 1px solid rgba(12,91,149,.25); border-radius: 50%; content: ""; }
-    .seal::before { inset: 17px; }
-    .seal::after { inset: 44px; border-style: dashed; }
-    .seal-inner { position: relative; z-index: 1; display: grid; gap: 7px; text-align: center; }
-    .seal-inner b { font: 700 42px/1 "Playfair Display", serif; }
-    .seal-inner span { font-size: 13px; font-weight: 700; letter-spacing: .1em; }
-    .seal-inner small { font: 600 9px/1.5 "Playfair Display", serif; letter-spacing: .15em; }
-    .blue-note { position: absolute; right: 0; bottom: 0; width: 235px; padding: 27px 28px; color: #fff; background: var(--navy); box-shadow: var(--shadow); }
-    .blue-note .eyebrow { margin-bottom: 9px; color: var(--sky); font-size: 9px; }
-    .blue-note p { margin: 0; font: 700 20px/1.55 "Noto Serif TC", serif; letter-spacing: .05em; }
-    .story-copy p { margin: 19px 0 0; color: var(--muted); }
-    .inline-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding-bottom: 5px; border-bottom: 1px solid var(--blue); color: var(--blue); font-weight: 700; }
-    .inline-link:hover { color: var(--navy); }
+            --chart-bg: #0a0d14;
+            --chart-grid: #151a26;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
 
-    /* Coffee collection */
-    .coffee { padding: 111px 0 120px; background: var(--mist); }
-    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 39px; }
-    .section-heading p { max-width: 370px; margin: 0; color: var(--muted); }
-    .coffee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 19px; }
-    .coffee-card { position: relative; min-height: 384px; display: flex; flex-direction: column; overflow: hidden; padding: 30px; color: #fff; background: var(--navy); box-shadow: var(--shadow); }
-    .coffee-card:nth-child(2) { background: #106396; }
-    .coffee-card:nth-child(3) { background: #164c68; }
-    .coffee-card::after { position: absolute; right: -90px; bottom: -90px; width: 260px; height: 260px; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; box-shadow: 0 0 0 27px rgba(255,255,255,.045), 0 0 0 65px rgba(255,255,255,.025); content: ""; }
-    .card-top, .coffee-card h3, .flavour, .card-footer { position: relative; z-index: 1; }
-    .card-top { color: var(--sky); font: 700 12px/1.3 "Playfair Display", serif; letter-spacing: .12em; }
-    .origin { margin: 25px 0 8px; color: rgba(255,255,255,.69); font-size: 10px; font-weight: 700; letter-spacing: .15em; }
-    .coffee-card h3 { margin: 0; font: 700 26px/1.38 "Noto Serif TC", serif; letter-spacing: .04em; }
-    .flavour { margin: 15px 0 0; color: rgba(255,255,255,.73); font-size: 14px; }
-    .card-footer { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin-top: auto; }
-    .price { font: 700 15px/1.3 "Playfair Display", serif; letter-spacing: .04em; }
-    .save-coffee { padding: 0 0 5px; border: 0; border-bottom: 1px solid rgba(255,255,255,.72); color: #fff; background: transparent; font-size: 13px; font-weight: 700; white-space: nowrap; transition: color .2s, border-color .2s; }
-    .save-coffee:hover { border-color: var(--sand); color: var(--sand); }
+        :root[data-theme="light"] {
+            --bg-base: #f0f3f8;
+            --bg-surface: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f6f8fc;
+            --bg-input: #f4f6fa;
+            --border-color: #e2e8f0;
+            --border-light: #cbd5e1;
 
-    /* Brew */
-    .brew { padding: 118px 0; background: #fff; }
-    .brew-grid { display: grid; grid-template-columns: .93fr 1.07fr; gap: clamp(42px, 8vw, 90px); align-items: center; }
-    .brew-art { position: relative; height: 414px; overflow: hidden; background: linear-gradient(136deg, #e3f4f7 0 48%, #f8fcfc 48% 100%); }
-    .brew-art::before { position: absolute; top: 37px; left: 35px; width: 68px; height: 41px; border-top: 1px solid #6cb4ce; border-bottom: 1px solid #6cb4ce; content: ""; }
-    .brew-art::after { position: absolute; top: 57px; left: 35px; width: 43px; border-top: 1px solid #6cb4ce; content: ""; }
-    .water-rings { position: absolute; top: 67px; left: 50%; width: 245px; height: 245px; border: 1px solid rgba(12,91,149,.27); border-radius: 50%; transform: translateX(-50%); box-shadow: 0 0 0 30px rgba(117,198,232,.12), 0 0 0 74px rgba(117,198,232,.065); }
-    .water-rings::before { position: absolute; top: 18px; left: 50%; width: 1px; height: 58px; background: #6bb8d1; content: ""; transform: translateX(-50%); }
-    .dripper { position: absolute; z-index: 2; top: 134px; left: 50%; width: 147px; height: 151px; border: 7px solid var(--blue); border-top: 0; background: linear-gradient(130deg, rgba(255,255,255,.85), rgba(117,198,232,.25)); clip-path: polygon(0 0, 100% 0, 74% 100%, 26% 100%); transform: translateX(-50%); }
-    .dripper::after { position: absolute; right: 32px; bottom: 19px; left: 32px; height: 33px; border-top: 2px solid rgba(12,91,149,.55); border-bottom: 2px solid rgba(12,91,149,.35); content: ""; }
-    .carafe { position: absolute; z-index: 1; bottom: 56px; left: 50%; width: 139px; height: 106px; border: 6px solid var(--blue); border-radius: 16px 16px 45% 45%; background: rgba(117,198,232,.23); transform: translateX(-50%); }
-    .carafe::before { position: absolute; top: -28px; left: 29px; width: 70px; height: 28px; border: 6px solid var(--blue); border-bottom: 0; border-radius: 50% 50% 0 0; content: ""; }
-    .brew-caption { position: absolute; right: 24px; bottom: 19px; color: var(--blue); text-align: right; }
-    .brew-caption span { display: block; font: 700 11px/1.5 "Playfair Display", serif; letter-spacing: .12em; }
-    .brew-caption strong { font: 700 24px/1.1 "Playfair Display", serif; }
-    .brew-copy > p { margin: 18px 0 25px; color: var(--muted); }
-    .brew-steps { border-top: 1px solid var(--line); }
-    .brew-step { display: grid; grid-template-columns: 52px 1fr; gap: 15px; padding: 18px 0; border-bottom: 1px solid var(--line); }
-    .step-number { color: var(--blue); font: 700 24px/1 "Playfair Display", serif; }
-    .brew-step h3 { margin: 0; font: 700 16px/1.5 "Noto Serif TC", serif; }
-    .brew-step p { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
 
-    /* Subscribe and footer */
-    .visit { position: relative; overflow: hidden; padding: 108px 0 113px; color: #fff; text-align: center; background: var(--navy); }
-    .visit::before, .visit::after { position: absolute; width: 390px; height: 390px; border: 1px solid rgba(117,198,232,.17); border-radius: 50%; content: ""; }
-    .visit::before { top: -245px; left: -153px; box-shadow: 0 0 0 45px rgba(117,198,232,.035); }
-    .visit::after { right: -170px; bottom: -260px; box-shadow: 0 0 0 50px rgba(117,198,232,.035); }
-    .visit .wrap { position: relative; z-index: 1; max-width: 715px; }
-    .visit .eyebrow { justify-content: center; color: var(--sky); }
-    .visit h2 { margin: 0; font: 800 clamp(30px, 4vw, 46px)/1.3 "Noto Serif TC", serif; letter-spacing: .045em; }
-    .visit p { max-width: 510px; margin: 19px auto 29px; color: rgba(255,255,255,.72); }
-    .subscribe-form { display: flex; min-height: 58px; border: 1px solid rgba(255,255,255,.62); }
-    .subscribe-form input { min-width: 0; flex: 1; padding: 0 18px; border: 0; color: #fff; outline: none; background: transparent; }
-    .subscribe-form input::placeholder { color: rgba(255,255,255,.56); }
-    .subscribe-form button { padding: 0 23px; border: 0; color: var(--navy); background: var(--sand); font-size: 14px; font-weight: 700; white-space: nowrap; transition: background .2s; }
-    .subscribe-form button:hover { background: #f1cb8b; }
-    .site-footer { padding: 66px 0 23px; color: rgba(255,255,255,.68); background: #031c31; }
-    .footer-grid { display: grid; grid-template-columns: 1.45fr .8fr 1fr; gap: 55px; padding-bottom: 48px; }
-    .footer-brand .brand { margin-bottom: 16px; }
-    .footer-brand p { max-width: 330px; margin: 0; font-size: 14px; }
-    .footer-title { margin: 0 0 14px; color: var(--sky); font-size: 11px; font-weight: 700; letter-spacing: .18em; }
-    .footer-links { display: grid; gap: 8px; font-size: 14px; }
-    .footer-links a:hover { color: var(--sky); }
-    .footer-links address { font-style: normal; }
-    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.17); color: rgba(255,255,255,.44); font: 600 10px/1.5 "Playfair Display", serif; letter-spacing: .1em; }
+            --gold: #d99b00;
+            --gold-hover: #b88300;
+            --gold-dim: rgba(217, 155, 0, 0.15);
 
-    .toast { position: fixed; z-index: 50; right: 22px; bottom: 22px; max-width: min(370px, calc(100vw - 44px)); padding: 14px 18px; border-left: 3px solid var(--sand); color: #fff; background: var(--navy); box-shadow: var(--shadow); font-size: 14px; opacity: 0; pointer-events: none; transform: translateY(12px); transition: opacity .25s ease, transform .25s ease; }
-    .toast.show { opacity: 1; transform: translateY(0); }
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+            --blue: #1d4ed8;
+            --blue-hover: #2563eb;
+            --blue-dim: rgba(29, 78, 216, 0.12);
 
-    @media (max-width: 820px) {
-      .menu-toggle { display: grid; place-items: center; }
-      .nav { position: relative; }
-      .nav-links { position: absolute; top: 78px; right: -24px; left: -24px; max-height: 0; display: grid; gap: 0; overflow: hidden; background: #05233c; transition: max-height .35s ease; }
-      .nav-links.open { max-height: 300px; border-top: 1px solid rgba(255,255,255,.16); }
-      .nav-links a { display: block; padding: 13px 24px; }
-      .nav-links .nav-cta { margin: 5px 24px 15px; padding: 10px 13px; text-align: center; }
-      .hero { min-height: 710px; }
-      .hero-grid { min-height: 710px; grid-template-columns: 1fr; gap: 0; padding: 118px 0 43px; }
-      .hero-art { min-height: 276px; margin-top: -9px; }
-      .hero-art .sun { top: 19px; right: 20%; width: 130px; }
-      .mountain { height: 180px; }
-      .mountain--back { bottom: 69px; height: 150px; }
-      .coffee-vessel { right: 17%; bottom: -12px; transform: scale(.72); transform-origin: bottom right; }
-      .art-label { display: none; }
-      .scroll-cue { display: none; }
-      .story-grid, .brew-grid { grid-template-columns: 1fr; }
-      .story-visual { max-width: 525px; width: 100%; min-height: 400px; }
-      .coffee-grid { grid-template-columns: repeat(2, 1fr); }
-      .coffee-card:nth-child(3) { grid-column: span 2; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
-      .footer-brand { grid-column: 1 / -1; }
-    }
-    @media (max-width: 560px) {
-      .wrap { width: calc(100% - 34px); }
-      .nav-links { right: -17px; left: -17px; }
-      .hero { min-height: 680px; }
-      .hero-grid { min-height: 680px; padding-top: 106px; }
-      .hero h1 { font-size: 40px; }
-      .hero-lede { font-size: 14px; }
-      .hero-actions { gap: 9px; margin-top: 24px; }
-      .hero-actions .button, .hero-actions .outline-link { min-height: 46px; padding: 8px 15px; font-size: 13px; }
-      .hero-note { margin-top: 21px; }
-      .hero-art { min-height: 219px; }
-      .hero-art .sun { width: 92px; }
-      .coffee-vessel { right: 5%; bottom: -48px; transform: scale(.57); }
-      .story, .coffee, .brew { padding: 76px 0; }
-      .seal { width: 245px; height: 245px; }
-      .seal-inner b { font-size: 35px; }
-      .story-visual { min-height: 347px; }
-      .blue-note { width: 185px; padding: 20px; }
-      .blue-note p { font-size: 16px; }
-      .section-heading { display: block; margin-bottom: 28px; }
-      .section-heading p { margin-top: 14px; font-size: 14px; }
-      .coffee-grid { grid-template-columns: 1fr; }
-      .coffee-card, .coffee-card:nth-child(3) { min-height: 330px; grid-column: auto; }
-      .coffee-card { padding: 25px; }
-      .brew-art { height: 310px; }
-      .water-rings { top: 45px; width: 178px; height: 178px; box-shadow: 0 0 0 23px rgba(117,198,232,.12), 0 0 0 53px rgba(117,198,232,.065); }
-      .dripper { top: 95px; transform: translateX(-50%) scale(.75); }
-      .carafe { bottom: 37px; transform: translateX(-50%) scale(.75); }
-      .visit { padding: 76px 0; }
-      .subscribe-form { display: grid; gap: 0; border: 0; }
-      .subscribe-form input { min-height: 54px; border: 1px solid rgba(255,255,255,.62); }
-      .subscribe-form button { min-height: 54px; margin-top: 10px; }
-      .footer-grid { grid-template-columns: 1fr; gap: 33px; }
-      .footer-brand { grid-column: auto; }
-      .footer-bottom { display: grid; gap: 8px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
-      .reveal { opacity: 1; transform: none; }
-    }
-  </style>
+            --green: #059669;
+            --green-dim: rgba(5, 150, 105, 0.12);
+            --red: #e11d48;
+            --red-dim: rgba(225, 29, 72, 0.12);
+
+            --chart-bg: #f8fafc;
+            --chart-grid: #e2e8f0;
+            --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        :root {
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 14px;
+            --font-mono: "Roboto Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.1s ease;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+        input, select, textarea { font-family: inherit; outline: none; border: 1px solid var(--border-color); background: var(--bg-input); color: var(--text-primary); }
+        input:focus, select:focus, textarea:focus { border-color: var(--blue); }
+
+        /* 頂部導覽列 (Navbar) */
+        header {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 58px;
+            padding: 0 16px;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-box {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #2962ff 0%, #00d8ff 100%);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 900;
+            font-size: 19px;
+            box-shadow: 0 2px 10px rgba(41, 98, 255, 0.4);
+        }
+
+        .trade-mode-toggle {
+            display: flex;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 2px;
+        }
+
+        .t-mode-btn {
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: var(--radius-sm);
+        }
+
+        .t-mode-btn.active {
+            background: var(--bg-card);
+            color: var(--blue);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 13px;
+            padding: 6px 4px;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            background: var(--green-dim);
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid rgba(14, 203, 129, 0.3);
+        }
+
+        .vip-fee-badge {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 8px;
+            background: var(--gold-dim);
+            color: var(--gold);
+            border: 1px solid rgba(240, 185, 11, 0.3);
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .theme-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--blue);
+        }
+
+        .user-asset-pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 5px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-action-blue {
+            background: var(--blue);
+            color: #fff;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action-blue:hover { opacity: 0.9; }
+
+        .btn-action-outline {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+        }
+
+        .btn-action-outline:hover { border-color: var(--blue); }
+
+        /* 即時跑馬燈報價列 (Live Ticker Bar) */
+        .ticker-bar {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 6px 16px;
+            gap: 24px;
+            overflow-x: auto;
+            white-space: nowrap;
+            font-size: 12px;
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .ticker-item:hover { background: var(--bg-card-hover); }
+        .ticker-sym { font-weight: 700; }
+        .ticker-price { font-family: var(--font-mono); font-weight: 600; }
+
+        .rate-badge {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        .rate-up { color: var(--green); background: var(--green-dim); }
+        .rate-down { color: var(--red); background: var(--red-dim); }
+
+        /* 核心交易操作區主網格 (Main Trading Grid Layout) */
+        .trade-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr 280px 320px;
+            height: calc(100vh - 105px);
+            min-height: 700px;
+            background: var(--bg-base);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .grid-panel {
+            background: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* 1. 左側：市場幣對清單 (幣種與交易對管理) */
+        .search-box {
+            padding: 8px 12px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+        }
+
+        .market-list {
+            flex: 1;
+            overflow-y: auto;
+            list-style: none;
+        }
+
+        .market-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .market-row:hover, .market-row.active { background: var(--bg-card-hover); }
+        .market-row .sym { font-weight: 700; font-size: 13px; }
+        .market-row .vol { font-size: 11px; color: var(--text-muted); }
+        .star-fav { color: var(--text-muted); cursor: pointer; margin-right: 6px; }
+        .star-fav.active { color: var(--gold); }
+
+        /* 2. 中間：K 線分析區 (K-Line Chart) */
+        .chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .pair-summary-bar {
+            padding: 10px 16px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        .pair-title-big {
+            font-size: 18px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .live-stat-item .label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .live-stat-item .val {
+            font-size: 13px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+        }
+
+        .margin-info-tag {
+            background: var(--blue-dim);
+            color: var(--blue);
+            border: 1px solid rgba(41, 98, 255, 0.3);
+            border-radius: var(--radius-sm);
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .chart-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 14px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .time-intervals { display: flex; gap: 4px; }
+
+        .interval-tab {
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+        }
+
+        .interval-tab.active, .interval-tab:hover {
+            color: var(--text-primary);
+            background: var(--bg-card);
+        }
+
+        .chart-indicator-tags {
+            display: flex;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .ind-active {
+            color: var(--blue);
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .chart-container {
+            flex: 1;
+            position: relative;
+            background: var(--chart-bg);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-svg-main { width: 100%; height: 75%; }
+        .chart-svg-vol { width: 100%; height: 25%; border-top: 1px solid var(--border-color); }
+
+        .chart-ohlc-hud {
+            position: absolute;
+            top: 10px;
+            left: 16px;
+            font-size: 11px;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            display: flex;
+            gap: 14px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            pointer-events: none;
+        }
+
+        /* 3. 中右欄：交易深度盤口 (Order Book) 與 即時成交 (Market Trades) */
+        .book-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .book-tab-btn {
+            flex: 1;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            background: transparent;
+            color: var(--text-muted);
+            border-bottom: 2px solid transparent;
+        }
+
+        .book-tab-btn.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--blue);
+            background: var(--bg-card);
+        }
+
+        .orderbook-content, .trades-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            font-size: 11px;
+            font-family: var(--font-mono);
+            padding: 4px 8px;
+        }
+
+        .ob-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            color: var(--text-muted);
+            padding: 4px 6px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .ob-header span:nth-child(2), .ob-header span:nth-child(3) { text-align: right; }
+
+        .ob-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            overflow: hidden;
+        }
+
+        .ob-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 2.5px 6px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .ob-row:hover { background: var(--bg-card-hover); }
+
+        .ob-row .bar {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            opacity: 0.15;
+            z-index: 1;
+        }
+
+        .ob-row span { position: relative; z-index: 2; }
+        .ob-row span:nth-child(2), .ob-row span:nth-child(3) { text-align: right; color: var(--text-secondary); }
+
+        .ob-row.sell .price { color: var(--red); font-weight: 600; }
+        .ob-row.sell .bar { background: var(--red); }
+        .ob-row.buy .price { color: var(--green); font-weight: 600; }
+        .ob-row.buy .bar { background: var(--green); }
+
+        .ob-mid-price {
+            padding: 8px 6px;
+            margin: 4px 0;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .trades-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .trade-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 4px 6px;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .trade-row span:nth-child(2), .trade-row span:nth-child(3) { text-align: right; }
+
+        /* 4. 最右欄：多種下單方式面板 (市價單、限價單、止盈止損、現貨/槓桿) */
+        .order-panel {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .order-nav-types {
+            display: flex;
+            background: var(--bg-input);
+            border-radius: var(--radius-sm);
+            padding: 3px;
+            border: 1px solid var(--border-color);
+        }
+
+        .order-type-btn {
+            flex: 1;
+            padding: 6px;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .order-type-btn.active {
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .leverage-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            font-size: 12px;
+        }
+
+        .leverage-select {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .order-side-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .side-btn {
+            padding: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .side-btn.buy-active { background: var(--green); color: #fff; }
+        .side-btn.sell-active { background: var(--red); color: #fff; }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-row label {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+        }
+
+        .input-group input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        .input-group .unit {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .pct-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .pct-btn {
+            padding: 4px 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 11px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+        }
+
+        .pct-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--blue);
+        }
+
+        .order-summary-box {
+            background: var(--bg-card);
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            border: 1px dashed var(--border-color);
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+        }
+
+        .summary-line strong {
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+        }
+
+        .btn-submit-order {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            border-radius: var(--radius-sm);
+            margin-top: 2px;
+            color: #fff;
+            transition: opacity 0.2s;
+        }
+
+        .btn-submit-order:hover { opacity: 0.9; }
+
+        /* 底部綜合工作台 (Workspace Tabs) */
+        .workspace-section {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .workspace-tabs {
+            display: flex;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 16px;
+            overflow-x: auto;
+        }
+
+        .ws-tab-btn {
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            background: transparent;
+            color: var(--text-muted);
+            border-bottom: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .ws-tab-btn.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--blue);
+        }
+
+        .tab-counter {
+            background: var(--blue-dim);
+            color: var(--blue);
+            font-size: 11px;
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .workspace-content {
+            padding: 18px 20px;
+            min-height: 290px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 12px;
+        }
+
+        .data-table th {
+            padding: 10px 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-card);
+        }
+
+        .data-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border-color);
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        .data-table tr:hover td { background: var(--bg-card-hover); }
+
+        .status-pill {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .status-filled { color: var(--green); background: var(--green-dim); }
+        .status-open { color: var(--blue); background: var(--blue-dim); }
+
+        .btn-cancel-order {
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--red);
+            padding: 3px 8px;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+
+        .btn-cancel-order:hover { background: var(--red-dim); }
+
+        /* 手續費率管理專區樣式 */
+        .fee-tier-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .fee-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .fee-card.highlight {
+            border-color: var(--blue);
+            background: rgba(41, 98, 255, 0.05);
+        }
+
+        .fee-card h4 {
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .fee-rate-val {
+            font-size: 18px;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            color: var(--blue);
+            margin: 4px 0;
+        }
+
+        /* API 串接與程式化交易專區樣式 */
+        .api-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 20px;
+        }
+
+        .code-box {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-primary);
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        /* 雙重驗證 (2FA) 與帳戶安全專區樣式 */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .sec-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sec-card h4 {
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sec-card p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        /* 內容查詢與百科專區樣式 */
+        .info-search-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .info-search-bar input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            border-color: var(--blue);
+            transform: translateY(-2px);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .info-card-title {
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .info-card-badge {
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: var(--blue-dim);
+            color: var(--blue);
+            font-weight: 700;
+        }
+
+        .info-card p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .info-stats-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            padding-top: 8px;
+        }
+
+        /* 資產卡片總覽 */
+        .asset-overview-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .asset-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .asset-card .card-title {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .asset-card .card-val {
+            font-size: 20px;
+            font-weight: 800;
+            font-family: var(--font-mono);
+        }
+
+        .asset-card .card-sub {
+            font-size: 11px;
+            color: var(--green);
+            margin-top: 4px;
+        }
+
+        /* Toast 彈出回饋 */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--blue);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 9999;
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            pointer-events: none;
+            font-size: 13px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* 模態視窗 (Modal) */
+        .modal-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5000;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.2s;
+        }
+
+        .modal-bg.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-window {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 520px;
+            padding: 24px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        /* 響應式佈局 (Mobile & Tablet) */
+        @media (max-width: 1400px) {
+            .trade-layout { grid-template-columns: 220px 1fr 260px 300px; }
+        }
+
+        @media (max-width: 1100px) {
+            .trade-layout { grid-template-columns: 1fr; height: auto; }
+            .grid-panel { border-right: none; border-bottom: 1px solid var(--border-color); min-height: 380px; }
+            .asset-overview-cards, .info-grid, .security-grid, .api-layout, .fee-tier-grid { grid-template-columns: 1fr; }
+            .nav-menu { display: none; }
+        }
+    </style>
 </head>
 <body>
-  <header class="site-header" id="top">
-    <nav class="nav wrap" aria-label="主要導覽">
-      <a class="brand" href="#top" aria-label="回到藍天咖啡首頁">
-        <span class="brand-mark" aria-hidden="true">B</span>
-        <span class="brand-copy"><strong>藍天咖啡</strong><small>BLUE SKY COFFEE</small></span>
-      </a>
-      <button class="menu-toggle" type="button" aria-controls="navLinks" aria-expanded="false" aria-label="開啟導覽選單">☰</button>
-      <div class="nav-links" id="navLinks">
-        <a href="#story">我們的故事</a>
-        <a href="#coffee">本季選豆</a>
-        <a href="#brew">沖煮日常</a>
-        <a class="nav-cta" href="#visit">訂閱風味通信</a>
-      </div>
-    </nav>
-  </header>
 
-  <main>
-    <section class="hero" aria-labelledby="heroTitle">
-      <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">HAND BREWED · SLOWLY ROASTED</p>
-          <h1 id="heroTitle">讓風味，在<span>藍天</span>下慢慢抵達。</h1>
-          <p class="hero-lede">藍天咖啡為喜歡手沖的您，挑選值得細品的單一產區咖啡豆。從第一縷花香，到最後一口回甘，每一杯都有屬於自己的晴朗天氣。</p>
-          <div class="hero-actions">
-            <a class="button button--sand" href="#coffee">探索本季咖啡豆 →</a>
-            <a class="outline-link" href="#story">認識藍天</a>
-          </div>
-          <p class="hero-note">TAIPEI · TAIWAN · EST. 2025</p>
-          <span class="scroll-cue">SCROLL TO DISCOVER</span>
-        </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="sun"></div>
-          <div class="mountain mountain--back"></div>
-          <div class="mountain"></div>
-          <div class="horizon"></div>
-          <div class="coffee-vessel"><div class="vessel-neck"></div><div class="vessel-body"></div><div class="vessel-handle"></div></div>
-          <div class="art-label"><strong>92°C</strong><span>理想水溫</span><span>細細喚醒香氣</span></div>
-        </div>
-      </div>
-    </section>
+    <!-- 頂部主導覽列 (Header) -->
+    <header>
+        <div class="nav-wrapper">
+            <div class="brand-section">
+                <!-- 品牌標誌：MakeBit -->
+                <a href="#" class="logo">
+                    <div class="logo-box">M</div>
+                    <span>Make<span style="color:var(--gold);">Bit</span></span>
+                </a>
 
-    <section class="story" id="story" aria-labelledby="storyTitle">
-      <div class="wrap story-grid">
-        <div class="story-visual reveal" aria-hidden="true">
-          <div class="seal"><div class="seal-inner"><b>B</b><span>慢一點，更清楚。</span><small>LET THE FLAVOUR SPEAK</small></div></div>
-          <aside class="blue-note"><p class="eyebrow">BLUE SKY NOTE</p><p>一杯好咖啡，從來不是匆忙完成的事。</p></aside>
-        </div>
-        <div class="story-copy reveal">
-          <p class="eyebrow">OUR PHILOSOPHY</p>
-          <h2 class="section-title" id="storyTitle">在一杯之間，看見產地的<span class="text-blue">晴朗</span>。</h2>
-          <p>我們相信，精品咖啡的美好不該被複雜掩蓋。以小批次烘焙留住豆子的個性，再用穩定、誠實的手沖，讓風土與時間在杯中變得清晰。</p>
-          <p>給懂得放慢腳步的人，也給每一個想重新認識咖啡的人。</p>
-          <a class="inline-link" href="#brew">看看我們如何沖煮 <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </section>
+                <!-- 現貨與槓桿交易模式快捷選取 -->
+                <div class="trade-mode-toggle">
+                    <button class="t-mode-btn active" id="modeBtnSpot" onclick="setTradingMode('spot')">現貨交易</button>
+                    <button class="t-mode-btn" id="modeBtnMargin" onclick="setTradingMode('margin')">槓桿交易 (3X~10X)</button>
+                </div>
 
-    <section class="coffee" id="coffee" aria-labelledby="coffeeTitle">
-      <div class="wrap">
-        <div class="section-heading reveal">
-          <div><p class="eyebrow">SEASONAL SELECTION</p><h2 class="section-title" id="coffeeTitle">今天，想喝哪一片<span class="text-blue">藍天</span>？</h2></div>
-          <p>三款當季單品，為不同的晨光、午後與靜夜而選。</p>
-        </div>
-        <div class="coffee-grid">
-          <article class="coffee-card reveal">
-            <div class="card-top">01 / BRIGHT</div><p class="origin">ETHIOPIA · YIRGACHEFFE</p><h3>衣索比亞・耶加雪菲</h3><p class="flavour">白花、佛手柑、蜂蜜</p>
-            <div class="card-footer"><span class="price">NT$ 520 / 200g</span><button class="save-coffee" type="button" data-coffee="衣索比亞・耶加雪菲">加入收藏 ＋</button></div>
-          </article>
-          <article class="coffee-card reveal">
-            <div class="card-top">02 / JUICY</div><p class="origin">KENYA · KIRINYAGA</p><h3>肯亞・祈安布</h3><p class="flavour">黑醋栗、洛神、葡萄柚</p>
-            <div class="card-footer"><span class="price">NT$ 580 / 200g</span><button class="save-coffee" type="button" data-coffee="肯亞・祈安布">加入收藏 ＋</button></div>
-          </article>
-          <article class="coffee-card reveal">
-            <div class="card-top">03 / ROUND</div><p class="origin">COLOMBIA · HUILA</p><h3>哥倫比亞・慧蘭</h3><p class="flavour">黃桃、焦糖、可可尾韻</p>
-            <div class="card-footer"><span class="price">NT$ 460 / 200g</span><button class="save-coffee" type="button" data-coffee="哥倫比亞・慧蘭">加入收藏 ＋</button></div>
-          </article>
-        </div>
-      </div>
-    </section>
+                <ul class="nav-menu">
+                    <li><a href="#" class="active">即時交易</a></li>
+                    <li><a href="#workspace" onclick="switchWsTab('assets')">資產充提</a></li>
+                    <li><a href="#workspace" onclick="switchWsTab('orders')">訂單紀錄</a></li>
+                    <li><a href="#workspace" onclick="switchWsTab('fee')">手續費管理</a></li>
+                    <li><a href="#workspace" onclick="switchWsTab('api')">API 串接</a></li>
+                    <li><a href="#workspace" onclick="switchWsTab('security')">帳戶安全(2FA)</a></li>
+                    <li><a href="#workspace" onclick="switchWsTab('content')">幣種百科查詢</a></li>
+                </ul>
+            </div>
 
-    <section class="brew" id="brew" aria-labelledby="brewTitle">
-      <div class="wrap brew-grid">
-        <div class="brew-art reveal" aria-hidden="true"><div class="water-rings"></div><div class="dripper"></div><div class="carafe"></div><div class="brew-caption"><span>V60 / 15G : 240ML</span><strong>2'45''</strong></div></div>
-        <div class="brew-copy reveal">
-          <p class="eyebrow">A QUIET RITUAL</p>
-          <h2 class="section-title" id="brewTitle">把時間交給水，讓咖啡說<span class="text-blue">自己的話</span>。</h2>
-          <p>不需要繁複儀式，只要三個安靜的步驟。每一個參數，都是為了讓你更靠近豆子原本的樣子。</p>
-          <div class="brew-steps">
-            <div class="brew-step"><span class="step-number">01</span><div><h3>研磨，先聞見期待</h3><p>15g 中細研磨，讓香氣從指尖開始展開。</p></div></div>
-            <div class="brew-step"><span class="step-number">02</span><div><h3>悶蒸，等待第一個呼吸</h3><p>以 92°C 熱水浸潤 30 秒，喚醒甜感與層次。</p></div></div>
-            <div class="brew-step"><span class="step-number">03</span><div><h3>注水，保持自己的節奏</h3><p>穩定畫圈，讓 240ml 的清澈在 2 分 45 秒完成。</p></div></div>
-          </div>
+            <div class="nav-right">
+                <!-- VIP 手續費徽章 -->
+                <div class="vip-fee-badge" onclick="switchWsTab('fee')">
+                    <span>👑</span>
+                    <span>VIP 2 (享 7折)</span>
+                </div>
+
+                <!-- 2FA 安全徽章 -->
+                <div class="security-badge" onclick="switchWsTab('security')">
+                    <span>🛡️</span>
+                    <span id="badge2FAStatus">2FA 已保護</span>
+                </div>
+
+                <!-- 深灰色與白色主題切換按鈕 -->
+                <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
+                    <span id="themeIcon">☀️</span>
+                    <span id="themeText">白色主題</span>
+                </button>
+
+                <div class="user-asset-pill" onclick="switchWsTab('assets')">
+                    <span style="color:var(--text-muted);">資產估值:</span>
+                    <strong id="headerTotalAsset" style="color:var(--blue); font-family:var(--font-mono);">25,840.50 USDT</strong>
+                </div>
+
+                <button class="btn-action-blue" onclick="openDepositModal()">快速充幣</button>
+                <button class="btn-action-outline" onclick="openWithdrawModal()">資產提現</button>
+            </div>
         </div>
-      </div>
-    </section>
+    </header>
 
-    <section class="visit" id="visit" aria-labelledby="visitTitle">
-      <div class="wrap reveal">
-        <p class="eyebrow">THE BLUE SKY LETTER</p>
-        <h2 id="visitTitle">把下一杯好咖啡，寄到你的日常裡。</h2>
-        <p>每月一封風味通信，分享新豆、沖煮靈感與只給會員的小小驚喜。</p>
-        <form class="subscribe-form" id="subscribeForm">
-          <input type="email" aria-label="電子郵件地址" placeholder="your@email.com" required>
-          <button type="submit">訂閱風味通信</button>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrap footer-grid">
-      <div class="footer-brand"><a class="brand" href="#top" aria-label="回到藍天咖啡首頁"><span class="brand-mark" aria-hidden="true">B</span><span class="brand-copy"><strong>藍天咖啡</strong><small>BLUE SKY COFFEE</small></span></a><p>為喜愛手沖咖啡的你，留下 一段慢慢品味、微微放晴的時間。</p></div>
-      <div><p class="footer-title">網站主題</p><div class="footer-links"><a href="#story">我們的故事</a><a href="#coffee">本季選豆</a><a href="#brew">沖煮日常</a></div></div>
-      <div><p class="footer-title">聯絡我們</p><div class="footer-links"><a href="mailto:hello@bluesky.coffee">hello@bluesky.coffee</a><address>台中市西屯區僑光路 100 號</address><span>每日 10:00 — 19:00</span></div></div>
+    <!-- 跑馬燈即時行情報價列 (Live Ticker Bar) -->
+    <div class="ticker-bar">
+        <div class="ticker-item" onclick="switchPair('BTC/USDT')">
+            <span class="ticker-sym">BTC/USDT</span>
+            <span class="ticker-price" id="tick-BTC">66,580.20</span>
+            <span class="rate-badge rate-up" id="rate-BTC">+3.14%</span>
+        </div>
+        <div class="ticker-item" onclick="switchPair('ETH/USDT')">
+            <span class="ticker-sym">ETH/USDT</span>
+            <span class="ticker-price" id="tick-ETH">3,548.60</span>
+            <span class="rate-badge rate-up" id="rate-ETH">+2.25%</span>
+        </div>
+        <div class="ticker-item" onclick="switchPair('USDT/USD')">
+            <span class="ticker-sym">USDT/USD</span>
+            <span class="ticker-price" id="tick-USDT">1.0001</span>
+            <span class="rate-badge rate-up" id="rate-USDT">+0.01%</span>
+        </div>
+        <div class="ticker-item" onclick="switchPair('SOL/USDT')">
+            <span class="ticker-sym">SOL/USDT</span>
+            <span class="ticker-price" id="tick-SOL">156.40</span>
+            <span class="rate-badge rate-up" id="rate-SOL">+5.80%</span>
+        </div>
+        <div class="ticker-item" onclick="switchPair('BNB/USDT')">
+            <span class="ticker-sym">BNB/USDT</span>
+            <span class="ticker-price" id="tick-BNB">587.20</span>
+            <span class="rate-badge rate-down" id="rate-BNB">-0.35%</span>
+        </div>
+        <div style="margin-left: auto; color: var(--blue); font-size: 11px; display: flex; align-items: center; gap: 6px;">
+            <span>● MakeBit 撮合引擎連線延遲 &lt; 1.0ms</span>
+        </div>
     </div>
-    <div class="wrap footer-bottom"><span>© 2025 BLUE SKY COFFEE. ALL RIGHTS RESERVED.</span><span>BREW SLOW · LIVE BRIGHT</span></div>
-  </footer>
-  <div class="toast" role="status" aria-live="polite"></div>
 
-  <script>
-    (() => {
-      const menuButton = document.querySelector('.menu-toggle');
-      const navLinks = document.querySelector('.nav-links');
-      const toast = document.querySelector('.toast');
-      let toastTimer;
+    <!-- 核心交易操作區 (Trading Layout) -->
+    <main class="trade-layout">
+        
+        <!-- 1. 左側：市場幣對清單 (幣種與交易對管理) -->
+        <section class="grid-panel">
+            <div class="panel-header">
+                <span>交易對市場 (Markets)</span>
+                <span style="color:var(--text-muted); font-size:11px;" id="marketTypeTag">現貨行情</span>
+            </div>
+            <div class="search-box">
+                <input type="text" id="coinSearchInput" placeholder="搜尋幣種代號 (BTC, ETH...)" oninput="filterMarketList()">
+            </div>
+            <ul class="market-list" id="marketListContainer">
+                <li class="market-row active" onclick="switchPair('BTC/USDT')" data-symbol="BTC">
+                    <div style="display:flex; align-items:center;">
+                        <span class="star-fav active" onclick="toggleFav(event, this)">★</span>
+                        <div>
+                            <div class="sym">BTC / USDT</div>
+                            <div class="vol">24H 額: 1.48B</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="ticker-price" style="font-weight:700;">66,580.20</div>
+                        <span class="rate-badge rate-up">+3.14%</span>
+                    </div>
+                </li>
+                <li class="market-row" onclick="switchPair('ETH/USDT')" data-symbol="ETH">
+                    <div style="display:flex; align-items:center;">
+                        <span class="star-fav active" onclick="toggleFav(event, this)">★</span>
+                        <div>
+                            <div class="sym">ETH / USDT</div>
+                            <div class="vol">24H 額: 890M</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="ticker-price" style="font-weight:700;">3,548.60</div>
+                        <span class="rate-badge rate-up">+2.25%</span>
+                    </div>
+                </li>
+                <li class="market-row" onclick="switchPair('USDT/USD')" data-symbol="USDT">
+                    <div style="display:flex; align-items:center;">
+                        <span class="star-fav active" onclick="toggleFav(event, this)">★</span>
+                        <div>
+                            <div class="sym">USDT / USD</div>
+                            <div class="vol">24H 額: 2.10B</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="ticker-price" style="font-weight:700;">1.0001</div>
+                        <span class="rate-badge rate-up">+0.01%</span>
+                    </div>
+                </li>
+                <li class="market-row" onclick="switchPair('SOL/USDT')" data-symbol="SOL">
+                    <div style="display:flex; align-items:center;">
+                        <span class="star-fav" onclick="toggleFav(event, this)">☆</span>
+                        <div>
+                            <div class="sym">SOL / USDT</div>
+                            <div class="vol">24H 額: 420M</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="ticker-price" style="font-weight:700;">156.40</div>
+                        <span class="rate-badge rate-up">+5.80%</span>
+                    </div>
+                </li>
+                <li class="market-row" onclick="switchPair('BNB/USDT')" data-symbol="BNB">
+                    <div style="display:flex; align-items:center;">
+                        <span class="star-fav" onclick="toggleFav(event, this)">☆</span>
+                        <div>
+                            <div class="sym">BNB / USDT</div>
+                            <div class="vol">24H 額: 195M</div>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div class="ticker-price" style="font-weight:700;">587.20</div>
+                        <span class="rate-badge rate-down">-0.35%</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
 
-      const closeMenu = () => {
-        navLinks.classList.remove('open');
-        menuButton.setAttribute('aria-expanded', 'false');
-        menuButton.setAttribute('aria-label', '開啟導覽選單');
-        menuButton.textContent = '☰';
-      };
-      menuButton.addEventListener('click', () => {
-        const opening = !navLinks.classList.contains('open');
-        navLinks.classList.toggle('open', opening);
-        menuButton.setAttribute('aria-expanded', String(opening));
-        menuButton.setAttribute('aria-label', opening ? '關閉導覽選單' : '開啟導覽選單');
-        menuButton.textContent = opening ? '×' : '☰';
-      });
-      navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+        <!-- 2. 中間：K 線分析區 (K-Line Chart) -->
+        <section class="grid-panel chart-wrapper">
+            <div class="pair-summary-bar">
+                <div class="pair-title-big">
+                    <span id="displayPair">BTC/USDT</span>
+                    <span class="margin-info-tag" id="displayLeverageBadge">現貨 1X</span>
+                </div>
+                <div class="live-stat-item">
+                    <span class="label">即時現價 (USDT)</span>
+                    <span class="val" id="summaryPrice" style="color:var(--green); font-size:16px;">66,580.20</span>
+                </div>
+                <div class="live-stat-item">
+                    <span class="label">24H 漲跌幅</span>
+                    <span class="val rate-up" id="summaryChange">+3.14%</span>
+                </div>
+                <div class="live-stat-item">
+                    <span class="label">24H 最高價</span>
+                    <span class="val" id="summaryHigh">67,200.00</span>
+                </div>
+                <div class="live-stat-item">
+                    <span class="label">24H 最低價</span>
+                    <span class="val" id="summaryLow">64,510.00</span>
+                </div>
+                <div class="live-stat-item">
+                    <span class="label">24H 成交量(BTC)</span>
+                    <span class="val" id="summaryVol">24,850.40</span>
+                </div>
+            </div>
 
-      const showToast = message => {
-        clearTimeout(toastTimer);
-        toast.textContent = message;
-        toast.classList.add('show');
-        toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
-      };
-      document.querySelectorAll('[data-coffee]').forEach(button => {
-        button.addEventListener('click', () => showToast(`已將「${button.dataset.coffee}」加入你的收藏。`));
-      });
-      document.querySelector('#subscribeForm').addEventListener('submit', event => {
-        event.preventDefault();
-        event.currentTarget.reset();
-        showToast('謝謝訂閱，下一封晴朗的風味通信即將寄出。');
-      });
+            <!-- K 線圖週期與指標 -->
+            <div class="chart-toolbar">
+                <div class="time-intervals">
+                    <button class="interval-tab" onclick="changeInterval('15m', this)">15m</button>
+                    <button class="interval-tab active" onclick="changeInterval('1H', this)">1H</button>
+                    <button class="interval-tab" onclick="changeInterval('4H', this)">4H</button>
+                    <button class="interval-tab" onclick="changeInterval('1D', this)">1D</button>
+                </div>
+                <div class="chart-indicator-tags">
+                    <span>指標:</span>
+                    <span class="ind-active" onclick="toggleIndicator('MA')">MA(7, 25, 99)</span>
+                    <span class="ind-active" onclick="toggleIndicator('BOLL')">BOLL(20, 2)</span>
+                    <span class="ind-active" onclick="toggleIndicator('VOL')">VOL 成交量</span>
+                </div>
+            </div>
 
-      const revealItems = document.querySelectorAll('.reveal');
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (!('IntersectionObserver' in window) || reducedMotion) {
-        revealItems.forEach(item => item.classList.add('visible'));
-      } else {
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
+            <div class="chart-container" id="chartBox">
+                <div class="chart-ohlc-hud" id="ohlcHud">
+                    <span>開: 65,420.00</span>
+                    <span>高: 66,900.00</span>
+                    <span>低: 65,100.00</span>
+                    <span>收: 66,580.20</span>
+                    <span style="color:var(--green);">+1.77%</span>
+                </div>
+
+                <svg class="chart-svg-main" viewBox="0 0 800 320" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="areaGlow" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#2962ff" stop-opacity="0.2"/>
+                            <stop offset="100%" stop-color="#2962ff" stop-opacity="0.0"/>
+                        </linearGradient>
+                    </defs>
+                    <line x1="0" y1="80" x2="800" y2="80" stroke="currentColor" opacity="0.1" stroke-width="1" stroke-dasharray="3"/>
+                    <line x1="0" y1="160" x2="800" y2="160" stroke="currentColor" opacity="0.1" stroke-width="1" stroke-dasharray="3"/>
+                    <line x1="0" y1="240" x2="800" y2="240" stroke="currentColor" opacity="0.1" stroke-width="1" stroke-dasharray="3"/>
+
+                    <path d="M 20 240 L 70 230 L 120 210 L 170 230 L 220 190 L 270 200 L 320 160 L 370 170 L 420 130 L 470 140 L 520 110 L 570 120 L 620 90 L 670 70 L 720 90 L 770 60 L 770 300 L 20 300 Z" fill="url(#areaGlow)"/>
+
+                    <path d="M 20 245 Q 120 220 220 200 T 420 145 T 620 100 T 770 70" fill="none" stroke="#2962ff" stroke-width="1.8"/>
+                    <path d="M 20 260 Q 150 240 300 210 T 550 150 T 770 105" fill="none" stroke="#00d8ff" stroke-width="1.8"/>
+
+                    <line x1="70" y1="210" x2="70" y2="250" stroke="#0ecb81" stroke-width="1.2"/>
+                    <rect x="63" y="220" width="14" height="20" fill="#0ecb81"/>
+
+                    <line x1="120" y1="190" x2="120" y2="230" stroke="#0ecb81" stroke-width="1.2"/>
+                    <rect x="113" y="200" width="14" height="22" fill="#0ecb81"/>
+
+                    <line x1="170" y1="210" x2="170" y2="250" stroke="#f6465d" stroke-width="1.2"/>
+                    <rect x="163" y="220" width="14" height="18" fill="#f6465d"/>
+
+                    <line x1="220" y1="170" x2="220" y2="215" stroke="#0ecb81" stroke-width="1.2"/>
+                    <rect x="213" y="180" width="14" height="25" fill="#0ecb81"/>
+
+                    <line x1="320" y1="140" x2="320" y2="180" stroke="#0ecb81" stroke-width="1.2"/>
+                    <rect x="313" y="150" width="14" height="20" fill="#0ecb81"/>
+
+                    <line x1="420" y1="110" x2="420" y2="155" stroke="#0ecb81" stroke-width="1.2"/>
+                    <rect x="413" y="120" width="14" height="24" fill="#0ecb81"/>
+
+                    <line x1="470" y1="125" x2="470" y2="165" stroke="#f6465d" stroke-width="1.2"/>
+                    <rect x="463" y="132" width="14" height="18" fill="#f6465d"/>
+
+                    <line x1="520" y1="90" x2="520" y2="135" stroke="#0ecb81" stroke-width="1.2"/>
+                    <rect x="513" y="100" width="14" height="25" fill="#0ecb81"/>
+
+                    <line x1="620" y1="70" x2="620" y2="115" stroke="#0ecb81" stroke-width="1.2"/>
+                    <rect x="613" y="80" width="14" height="25" fill="#0ecb81"/>
+
+                    <line x1="720" y1="70" x2="720" y2="110" stroke="#f6465d" stroke-width="1.2"/>
+                    <rect x="713" y="80" width="14" height="15" fill="#f6465d"/>
+
+                    <line x1="770" y1="40" x2="770" y2="85" stroke="#0ecb81" stroke-width="1.2"/>
+                    <rect x="763" y="50" width="14" height="25" fill="#0ecb81"/>
+                </svg>
+
+                <svg class="chart-svg-vol" viewBox="0 0 800 80" preserveAspectRatio="none">
+                    <rect x="63" y="30" width="14" height="50" fill="#0ecb81" opacity="0.6"/>
+                    <rect x="113" y="20" width="14" height="60" fill="#0ecb81" opacity="0.6"/>
+                    <rect x="163" y="45" width="14" height="35" fill="#f6465d" opacity="0.6"/>
+                    <rect x="213" y="25" width="14" height="55" fill="#0ecb81" opacity="0.6"/>
+                    <rect x="313" y="35" width="14" height="45" fill="#0ecb81" opacity="0.6"/>
+                    <rect x="413" y="15" width="14" height="65" fill="#0ecb81" opacity="0.6"/>
+                    <rect x="463" y="50" width="14" height="30" fill="#f6465d" opacity="0.6"/>
+                    <rect x="513" y="20" width="14" height="60" fill="#0ecb81" opacity="0.6"/>
+                    <rect x="613" y="10" width="14" height="70" fill="#0ecb81" opacity="0.6"/>
+                    <rect x="713" y="40" width="14" height="40" fill="#f6465d" opacity="0.6"/>
+                    <rect x="763" y="8" width="14" height="72" fill="#0ecb81" opacity="0.75"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- 3. 中右欄：交易深度盤口 (Order Book) 與 即時成交 (Market Trades) -->
+        <section class="grid-panel">
+            <div class="book-tabs">
+                <button class="book-tab-btn active" id="tabBtnOrderBook" onclick="switchBookTab('book')">交易深度盤口</button>
+                <button class="book-tab-btn" id="tabBtnTrades" onclick="switchBookTab('trades')">即時撮合成交</button>
+            </div>
+
+            <div class="orderbook-content" id="viewBookPane">
+                <div class="ob-header">
+                    <span>價格(USDT)</span>
+                    <span>數量</span>
+                    <span>累計總額</span>
+                </div>
+
+                <div class="ob-list" id="orderbookAsks">
+                    <div class="ob-row sell" onclick="fillPrice(66640.00)">
+                        <span class="price">66,640.00</span><span>0.412</span><span>27.4K</span><div class="bar" style="width: 45%;"></div>
+                    </div>
+                    <div class="ob-row sell" onclick="fillPrice(66620.50)">
+                        <span class="price">66,620.50</span><span>0.850</span><span>56.6K</span><div class="bar" style="width: 70%;"></div>
+                    </div>
+                    <div class="ob-row sell" onclick="fillPrice(66600.00)">
+                        <span class="price">66,600.00</span><span>1.240</span><span>82.5K</span><div class="bar" style="width: 90%;"></div>
+                    </div>
+                    <div class="ob-row sell" onclick="fillPrice(66590.00)">
+                        <span class="price">66,590.00</span><span>0.315</span><span>20.9K</span><div class="bar" style="width: 30%;"></div>
+                    </div>
+                </div>
+
+                <div class="ob-mid-price">
+                    <span id="obCurrentPrice" style="color:var(--green);">66,580.20 ↑</span>
+                    <span style="font-size:11px; color:var(--text-muted); font-weight:normal;">指數: 66,578.10</span>
+                </div>
+
+                <div class="ob-list" id="orderbookBids">
+                    <div class="ob-row buy" onclick="fillPrice(66570.00)">
+                        <span class="price">66,570.00</span><span>0.620</span><span>41.2K</span><div class="bar" style="width: 55%;"></div>
+                    </div>
+                    <div class="ob-row buy" onclick="fillPrice(66550.00)">
+                        <span class="price">66,550.00</span><span>1.105</span><span>73.5K</span><div class="bar" style="width: 85%;"></div>
+                    </div>
+                    <div class="ob-row buy" onclick="fillPrice(66530.00)">
+                        <span class="price">66,530.00</span><span>0.480</span><span>31.9K</span><div class="bar" style="width: 40%;"></div>
+                    </div>
+                    <div class="ob-row buy" onclick="fillPrice(66500.00)">
+                        <span class="price">66,500.00</span><span>1.890</span><span>125.6K</span><div class="bar" style="width: 95%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trades-content" id="viewTradesPane" style="display:none;">
+                <div class="ob-header">
+                    <span>成交時間</span>
+                    <span>價格(USDT)</span>
+                    <span>數量(BTC)</span>
+                </div>
+                <div class="trades-list" id="marketTradesFeed">
+                    <div class="trade-row">
+                        <span style="color:var(--text-muted);">20:55:12</span>
+                        <span style="color:var(--green); font-weight:700;">66,580.20</span>
+                        <span>0.1420</span>
+                    </div>
+                    <div class="trade-row">
+                        <span style="color:var(--text-muted);">20:55:08</span>
+                        <span style="color:var(--red); font-weight:700;">66,579.50</span>
+                        <span>0.0580</span>
+                    </div>
+                    <div class="trade-row">
+                        <span style="color:var(--text-muted);">20:55:01</span>
+                        <span style="color:var(--green); font-weight:700;">66,580.00</span>
+                        <span>0.3100</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 最右欄：多種下單方式面板 (市價單、限價單、止盈止損、現貨/槓桿) -->
+        <section class="grid-panel order-panel">
+            <div class="panel-header" style="background:transparent; padding:0 0 4px 0; border:none;">
+                <span style="font-size:13px; font-weight:800;" id="orderPanelTitle">現貨買賣下單</span>
+                <span style="font-size:11px; color:var(--text-muted);">VIP 2 費率優惠</span>
+            </div>
+
+            <div class="leverage-box" id="leverageSelectBox" style="display:none;">
+                <span>槓桿乘數選擇:</span>
+                <select class="leverage-select" id="leverageMultiplier" onchange="updateLeverageInfo()">
+                    <option value="3">3X 槓桿 (保證金 33.3%)</option>
+                    <option value="5" selected>5X 槓桿 (保證金 20.0%)</option>
+                    <option value="10">10X 槓桿 (保證金 10.0%)</option>
+                </select>
+            </div>
+
+            <div class="order-nav-types">
+                <button class="order-type-btn active" id="tabLimit" onclick="setOrderMode('limit')">限價單</button>
+                <button class="order-type-btn" id="tabMarket" onclick="setOrderMode('market')">市價單</button>
+                <button class="order-type-btn" id="tabStop" onclick="setOrderMode('stop')">止盈止損</button>
+            </div>
+
+            <div class="order-side-btns">
+                <button class="side-btn buy-active" id="btnSideBuy" onclick="setSide('buy')">買入 / 做多</button>
+                <button class="side-btn" id="btnSideSell" onclick="setSide('sell')">賣出 / 做空</button>
+            </div>
+
+            <div class="form-row" id="stopTriggerRow" style="display: none;">
+                <label><span>觸發條件價格 (Stop Price)</span></label>
+                <div class="input-group">
+                    <input type="number" id="inputStopPrice" value="65000.00" placeholder="觸發價">
+                    <span class="unit">USDT</span>
+                </div>
+            </div>
+
+            <div class="form-row" id="orderPriceRow">
+                <label>
+                    <span>委託價格 (Price)</span>
+                    <span style="color:var(--blue); cursor:pointer;" onclick="fillPrice(currentCoinPrice)">最佳市價</span>
+                </label>
+                <div class="input-group">
+                    <input type="number" id="inputOrderPrice" value="66580.20" oninput="calcOrderTotal()">
+                    <span class="unit">USDT</span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label>
+                    <span>委託數量 (Amount)</span>
+                    <span id="availBalanceLabel">可用: 18,450.00 USDT</span>
+                </label>
+                <div class="input-group">
+                    <input type="number" id="inputOrderAmount" value="0.05" oninput="calcOrderTotal()" placeholder="0.00">
+                    <span class="unit" id="orderAmountCoin">BTC</span>
+                </div>
+            </div>
+
+            <div class="pct-buttons">
+                <button class="pct-btn" onclick="applyPercent(0.25)">25%</button>
+                <button class="pct-btn" onclick="applyPercent(0.50)">50%</button>
+                <button class="pct-btn" onclick="applyPercent(0.75)">75%</button>
+                <button class="pct-btn" onclick="applyPercent(1.00)">100%</button>
+            </div>
+
+            <div class="order-summary-box">
+                <div class="summary-line">
+                    <span>委託類型:</span>
+                    <strong id="summaryOrderType">現貨・限價單</strong>
+                </div>
+                <div class="summary-line">
+                    <span>預估成交總額:</span>
+                    <strong id="summaryOrderTotal">3,329.01 USDT</strong>
+                </div>
+                <div class="summary-line" id="marginEstRiskLine" style="display:none; color:var(--blue);">
+                    <span>預估強平價:</span>
+                    <strong id="estLiqPrice" style="color:var(--red);">53,264.10 USDT</strong>
+                </div>
+            </div>
+
+            <button class="btn-submit-order" id="btnSubmitOrder" onclick="executeSubmitOrder()" style="background:var(--green);">
+                買入 BTC
+            </button>
+        </section>
+
+    </main>
+
+    <!-- 底部綜合工作台 (Workspace Tabs) -->
+    <section class="workspace-section" id="workspace">
+        <div class="workspace-tabs">
+            <button class="ws-tab-btn active" id="tabBtnOrders" onclick="switchWsTab('orders')">
+                當前委託 (Open Orders)
+                <span class="tab-counter" id="openOrdersCount">2</span>
+            </button>
+            <button class="ws-tab-btn" id="tabBtnHistory" onclick="switchWsTab('history')">
+                歷史交易紀錄 (Trade History)
+            </button>
+            <button class="ws-tab-btn" id="tabBtnAssets" onclick="switchWsTab('assets')">
+                資產充提與管理 (Assets Portfolio)
+            </button>
+            <button class="ws-tab-btn" id="tabBtnFee" onclick="switchWsTab('fee')">
+                交易手續費管理 (Fee Tier)
+            </button>
+            <button class="ws-tab-btn" id="tabBtnApi" onclick="switchWsTab('api')">
+                API 串接支援 (Algo Trading)
+            </button>
+            <button class="ws-tab-btn" id="tabBtnSecurity" onclick="switchWsTab('security')">
+                會員帳戶與安全驗證 (2FA Security)
+            </button>
+            <button class="ws-tab-btn" id="tabBtnContent" onclick="switchWsTab('content')">
+                幣種百科與內容查詢 (Crypto Intelligence)
+            </button>
+        </div>
+
+        <div class="workspace-content">
+            
+            <!-- 視圖 1: 當前委託 (Open Orders) -->
+            <div id="viewOrders">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>委託時間</th>
+                            <th>交易對</th>
+                            <th>類型</th>
+                            <th>方向</th>
+                            <th>委託價格 (USDT)</th>
+                            <th>委託數量</th>
+                            <th>已成交</th>
+                            <th>未成交</th>
+                            <th>狀態</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="openOrdersTableBody">
+                        <tr>
+                            <td>2026-10-01 20:50:15</td>
+                            <td><strong>BTC/USDT</strong></td>
+                            <td>限價單 (現貨)</td>
+                            <td><span style="color:var(--green); font-weight:700;">買入</span></td>
+                            <td>65,500.00</td>
+                            <td>0.1200 BTC</td>
+                            <td>0.0000 BTC</td>
+                            <td>0.1200 BTC</td>
+                            <td><span class="status-pill status-open">待撮合</span></td>
+                            <td><button class="btn-cancel-order" onclick="cancelOrder(this, 7860.00, 'USDT')">撤銷訂單</button></td>
+                        </tr>
+                        <tr>
+                            <td>2026-10-01 19:40:02</td>
+                            <td><strong>ETH/USDT</strong></td>
+                            <td>止盈止損 (5X槓桿)</td>
+                            <td><span style="color:var(--red); font-weight:700;">賣出</span></td>
+                            <td>3,650.00</td>
+                            <td>2.5000 ETH</td>
+                            <td>0.0000 ETH</td>
+                            <td>2.5000 ETH</td>
+                            <td><span class="status-pill status-open">條件監控中</span></td>
+                            <td><button class="btn-cancel-order" onclick="cancelOrder(this, 2.5, 'ETH')">撤銷訂單</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 視圖 2: 歷史交易紀錄 (Trade History) -->
+            <div id="viewHistory" style="display: none;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>成交時間</th>
+                            <th>訂單編號</th>
+                            <th>交易對</th>
+                            <th>方向</th>
+                            <th>成交均價 (USDT)</th>
+                            <th>成交數量</th>
+                            <th>總成交額 (USDT)</th>
+                            <th>手續費 (VIP2)</th>
+                            <th>成交狀態</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tradeHistoryTableBody">
+                        <tr>
+                            <td>2026-10-01 19:12:44</td>
+                            <td>#MB-88891241</td>
+                            <td><strong>BTC/USDT</strong></td>
+                            <td><span style="color:var(--green); font-weight:700;">買入 (現貨)</span></td>
+                            <td>66,120.00</td>
+                            <td>0.2500 BTC</td>
+                            <td>16,530.00</td>
+                            <td>5.78 USDT</td>
+                            <td><span class="status-pill status-filled">完全成交</span></td>
+                        </tr>
+                        <tr>
+                            <td>2026-10-01 16:45:10</td>
+                            <td>#MB-88874102</td>
+                            <td><strong>SOL/USDT</strong></td>
+                            <td><span style="color:var(--green); font-weight:700;">買入 (3X槓桿)</span></td>
+                            <td>152.00</td>
+                            <td>10.0000 SOL</td>
+                            <td>1,520.00</td>
+                            <td>0.53 USDT</td>
+                            <td><span class="status-pill status-filled">完全成交</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 視圖 3: 資產充提與管理 (Assets Portfolio) -->
+            <div id="viewAssets" style="display: none;">
+                <div class="asset-overview-cards">
+                    <div class="asset-card">
+                        <div class="card-title">總資產估值 (折合 USDT) <span>🔒 100% 準備金</span></div>
+                        <div class="card-val" id="assetTotalVal">25,840.50</div>
+                        <div class="card-sub">≈ $25,840.50 USD (約 NT$ 826,896)</div>
+                    </div>
+                    <div class="asset-card">
+                        <div class="card-title">今日投資盈虧 (Today PnL) <span>24H</span></div>
+                        <div class="card-val" style="color:var(--green);">+1,248.80</div>
+                        <div class="card-sub">+5.08% 跑贏市場</div>
+                    </div>
+                    <div class="asset-card">
+                        <div class="card-title">現貨可用資金 (Available USDT)</div>
+                        <div class="card-val" id="assetAvailUSDT">18,450.00</div>
+                        <div class="card-sub">可即時充提與下單</div>
+                    </div>
+                    <div class="asset-card">
+                        <div class="card-title">委託凍結與槓桿保證金</div>
+                        <div class="card-val" id="assetFrozenUSDT">7,390.50</div>
+                        <div class="card-sub">健康度: 安全良好 (185%)</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <h4 style="font-size:14px; font-weight:800;">MakeBit 數位資產餘額明細</h4>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn-action-blue" onclick="openDepositModal()">快速充幣 (+5,000 USDT)</button>
+                        <button class="btn-action-outline" onclick="openWithdrawModal()">申請提幣</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>幣種 (Coin)</th>
+                            <th>全稱</th>
+                            <th>可用餘額</th>
+                            <th>凍結數量</th>
+                            <th>折合價值 (USDT)</th>
+                            <th>充提操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong style="color:var(--green);">USDT</strong></td>
+                            <td>Tether USD 泰達幣</td>
+                            <td id="row-usdt-avail">18,450.00</td>
+                            <td id="row-usdt-frozen">7,390.50</td>
+                            <td>25,840.50 USDT</td>
+                            <td>
+                                <button class="btn-action-blue" style="padding:4px 8px; font-size:11px;" onclick="openDepositModal()">充幣</button>
+                                <button class="btn-action-outline" style="padding:4px 8px; font-size:11px; margin-left:4px;" onclick="openWithdrawModal()">提幣</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#f7931a;">BTC</strong></td>
+                            <td>Bitcoin 比特幣</td>
+                            <td id="row-btc-avail">0.4500</td>
+                            <td>0.0000</td>
+                            <td>29,961.09 USDT</td>
+                            <td>
+                                <button class="btn-action-blue" style="padding:4px 8px; font-size:11px;" onclick="openDepositModal()">充幣</button>
+                                <button class="btn-action-outline" style="padding:4px 8px; font-size:11px; margin-left:4px;" onclick="switchPair('BTC/USDT')">去交易</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#627eea;">ETH</strong></td>
+                            <td>Ethereum 以太幣</td>
+                            <td id="row-eth-avail">3.2000</td>
+                            <td>2.5000</td>
+                            <td>20,227.02 USDT</td>
+                            <td>
+                                <button class="btn-action-blue" style="padding:4px 8px; font-size:11px;" onclick="openDepositModal()">充幣</button>
+                                <button class="btn-action-outline" style="padding:4px 8px; font-size:11px; margin-left:4px;" onclick="switchPair('ETH/USDT')">去交易</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 視圖 4: 交易手續費管理 (Fee Tier) -->
+            <div id="viewFee" style="display: none;">
+                <div class="fee-tier-grid">
+                    <div class="fee-card">
+                        <h4><span>VIP 0 (一般用戶)</span></h4>
+                        <div style="font-size:11px; color:var(--text-muted);">30天交易額 &lt; 10,000 USDT</div>
+                        <div class="fee-rate-val">0.100% / 0.100%</div>
+                        <div style="font-size:11px; color:var(--text-secondary);">Maker / Taker 基礎標準費率</div>
+                    </div>
+
+                    <div class="fee-card">
+                        <h4><span>VIP 1 (活躍用戶)</span></h4>
+                        <div style="font-size:11px; color:var(--text-muted);">30天交易額 ≥ 10,000 USDT</div>
+                        <div class="fee-rate-val">0.080% / 0.085%</div>
+                        <div style="font-size:11px; color:var(--text-secondary);">享手續費 85 折優惠</div>
+                    </div>
+
+                    <div class="fee-card highlight">
+                        <h4>
+                            <span>VIP 2 (您目前的等級)</span>
+                            <span class="status-pill status-open">當前享受</span>
+                        </h4>
+                        <div style="font-size:11px; color:var(--text-muted);">30天交易額 ≥ 50,000 USDT</div>
+                        <div class="fee-rate-val" style="color:var(--blue);">0.040% / 0.070%</div>
+                        <div style="font-size:11px; color:var(--blue); font-weight:700;">Maker 超低優惠 7 折！</div>
+                    </div>
+
+                    <div class="fee-card">
+                        <h4><span>VIP 5 (機構 / 造市商)</span></h4>
+                        <div style="font-size:11px; color:var(--text-muted);">30天交易額 ≥ 10,000,000 USDT</div>
+                        <div class="fee-rate-val" style="color:var(--green);">-0.005% / 0.020%</div>
+                        <div style="font-size:11px; color:var(--green);">Maker 享掛單返佣回饋</div>
+                    </div>
+                </div>
+
+                <div style="background:var(--bg-card); padding:16px; border-radius:var(--radius-md); border:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h4 style="font-size:14px; font-weight:800; margin-bottom:4px;">使用 MakeBit 平台幣支付交易手續費</h4>
+                        <p style="font-size:12px; color:var(--text-secondary);">開啟後自動在基礎手續費之上再享額外 25% 費率減免折扣。</p>
+                    </div>
+                    <button class="btn-action-blue" onclick="showToast('已成功開啟手續費折抵！全站現貨與槓桿均享折抵優惠')">開啟折抵優惠</button>
+                </div>
+            </div>
+
+            <!-- 視圖 5: API 串接支援 (Algo Trading) -->
+            <div id="viewApi" style="display: none;">
+                <div class="api-layout">
+                    <div>
+                        <h4 style="font-size:14px; font-weight:800; margin-bottom:8px;">MakeBit 程式化交易 API 支援</h4>
+                        <p style="font-size:12px; color:var(--text-secondary); line-height:1.7; margin-bottom:14px;">
+                            專為高頻量化策略、套利機器人及機構造市商設計。支援 REST 訂單管理與 WebSocket 行情逐筆廣播。
+                        </p>
+                        <div style="background:var(--bg-card); padding:14px; border-radius:var(--radius-md); border:1px solid var(--border-color); margin-bottom:14px;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                                <span>REST Endpoint:</span>
+                                <strong>https://api.makebit.com/v1</strong>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                                <span>WebSocket Stream:</span>
+                                <strong>wss://stream.makebit.com/ws</strong>
+                            </div>
+                            <div style="display:flex; justify-content:space-between;">
+                                <span>下單延遲:</span>
+                                <span style="color:var(--green); font-weight:700;">Sub-millisecond (&lt; 1ms)</span>
+                            </div>
+                        </div>
+                        <button class="btn-action-blue" onclick="openApiKeyModal()">建立並管理 API Key</button>
+                    </div>
+
+                    <div>
+                        <div style="font-size:12px; font-weight:700; margin-bottom:6px; color:var(--text-muted);">Python 自動化下單 SDK 範例:</div>
+                        <pre class="code-box"><code>import hmac, hashlib, time, requests
+
+API_KEY = "makebit_live_api_key_888"
+SECRET = b"makebit_secret_token_11425140"
+
+def place_order(symbol, side, price, qty):
+    timestamp = str(int(time.time() * 1000))
+    query = f"symbol={symbol}&side={side}&type=LIMIT&price={price}&qty={qty}&ts={timestamp}"
+    signature = hmac.new(SECRET, query.encode(), hashlib.sha256).hexdigest()
+    
+    headers = {"X-MB-KEY": API_KEY, "X-MB-SIGN": signature}
+    url = f"https://api.makebit.com/v1/order?{query}"
+    return requests.post(url, headers=headers).json()
+
+# 範例執行：限價買入 0.1 BTC
+# place_order("BTCUSDT", "BUY", 66580.20, 0.1)</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 視圖 6: 會員帳戶與安全驗證 (2FA Security) -->
+            <div id="viewSecurity" style="display: none;">
+                <div class="security-grid">
+                    <div class="sec-card">
+                        <div>
+                            <h4>
+                                <span>雙重身分驗證 (2FA)</span>
+                                <span class="status-pill status-filled" id="tag2FAState">已啟用</span>
+                            </h4>
+                            <p>在登入、大額提現與 API 金鑰建立時，必須輸入 Google Authenticator 6 位數一次性動態密碼。</p>
+                        </div>
+                        <button class="btn-action-outline" id="btnToggle2FA" onclick="toggle2FAState()">切換 2FA 驗證防護</button>
+                    </div>
+
+                    <div class="sec-card">
+                        <div>
+                            <h4>
+                                <span>會員 KYC 實名認證</span>
+                                <span class="status-pill status-filled">已認證 (等級 2)</span>
+                            </h4>
+                            <p>完成身分證件與人臉識別審核，每日法幣提領額度提升至 2,000,000 USDT，享有專屬法幣入金通道。</p>
+                        </div>
+                        <button class="btn-action-outline" onclick="showToast('您的會員 KYC 認證狀態正常 (Level 2)')">查看認證權限</button>
+                    </div>
+
+                    <div class="sec-card">
+                        <div>
+                            <h4>
+                                <span>防釣魚碼安全保護</span>
+                                <span class="status-pill status-filled">已啟用</span>
+                            </h4>
+                            <p>系統發送的所有登入與提幣確認郵件皆會包含專屬防偽代碼 [MAKEBIT888]，防範假冒釣魚郵件。</p>
+                        </div>
+                        <button class="btn-action-blue" onclick="showToast('防釣魚代碼已驗證無誤')">設定防釣魚碼</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 視圖 7: 幣種百科與內容查詢 (Crypto Intelligence) -->
+            <div id="viewContent" style="display: none;">
+                <div class="info-search-bar">
+                    <input type="text" id="infoSearchInput" placeholder="輸入關鍵字查詢幣種百科、白皮書、創立時間、流通量、共識機制 (如 BTC, ETH, USDT)..." oninput="filterCoinInfo()">
+                </div>
+
+                <div class="info-grid" id="infoGridContainer">
+                    <div class="info-card" onclick="openCoinDetailModal('BTC')">
+                        <div class="info-card-header">
+                            <span class="info-card-title">比特幣 (Bitcoin / BTC)</span>
+                            <span class="info-card-badge">市值第一・數位黃金</span>
+                        </div>
+                        <p>由中本聰於 2008 年提出，全球首個去中心化點對點電子現金系統。採用工作量證明 (PoW) 與 SHA-256 加密演算法。</p>
+                        <div class="info-stats-row">
+                            <span>發行上限: 2,100 萬枚</span>
+                            <span>共識機制: PoW</span>
+                            <span style="color:var(--blue); font-weight:700;">查看白皮書</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card" onclick="openCoinDetailModal('ETH')">
+                        <div class="info-card-header">
+                            <span class="info-card-title">以太坊 (Ethereum / ETH)</span>
+                            <span class="info-card-badge">智慧合約標準</span>
+                        </div>
+                        <p>Vitalik Buterin 於 2015 年創立，支援圖靈完備智慧合約與 DApps。現已轉型為權益證明 (PoS) 環保機制。</p>
+                        <div class="info-stats-row">
+                            <span>流通供應: ~1.2 億枚</span>
+                            <span>共識機制: PoS</span>
+                            <span style="color:var(--blue); font-weight:700;">查看技術規格</span>
+                        </div>
+                    </div>
+
+                    <div class="info-card" onclick="openCoinDetailModal('USDT')">
+                        <div class="info-card-header">
+                            <span class="info-card-title">泰達幣 (Tether / USDT)</span>
+                            <span class="info-card-badge">最大美元穩定幣</span>
+                        </div>
+                        <p>由 Tether 公司發行，以 1:1 美元儲備掛鉤。廣泛運行於 TRC20、ERC20，為加密市場關鍵流動性樞紐。</p>
+                        <div class="info-stats-row">
+                            <span>資產類型: 法幣抵押穩定幣</span>
+                            <span>儲備審計: 100% 準備金</span>
+                            <span style="color:var(--blue); font-weight:700;">查看審計報告</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 充幣/入金彈窗 (Deposit Modal) -->
+    <div class="modal-bg" id="depositModal">
+        <div class="modal-window">
+            <button class="modal-close" onclick="closeDepositModal()">✕</button>
+            <h3 style="font-size:18px; font-weight:700; margin-bottom:12px;">快速充值入金 (MakeBit Deposit)</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">選擇存入的數位資產幣種與轉帳主網：</p>
+            
+            <div class="form-row" style="margin-bottom:12px;">
+                <label>充值幣種</label>
+                <div class="input-group">
+                    <select id="depositCoinSelect" style="width:100%; border:none; background:transparent; font-weight:700; color:var(--text-primary);">
+                        <option value="USDT">USDT - 泰達幣 (Tether)</option>
+                        <option value="BTC">BTC - 比特幣 (Bitcoin)</option>
+                        <option value="ETH">ETH - 以太幣 (Ethereum)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-bottom:16px;">
+                <label>充值網路</label>
+                <div class="input-group">
+                    <select style="width:100%; border:none; background:transparent; color:var(--text-primary);">
+                        <option>TRC20 (Tron 網路) - 極速免手續費</option>
+                        <option>ERC20 (Ethereum 網路)</option>
+                        <option>BEP20 (BNB Smart Chain)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="background:var(--bg-input); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:14px; text-align:center;">
+                <div style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">專屬充幣地址 (MakeBit Safe Vault)</div>
+                <div style="font-family:var(--font-mono); font-size:13px; color:var(--blue); word-break:break-all;">
+                    MB888MakeBitDepositVault11425140Secure
+                </div>
+            </div>
+
+            <button class="btn-action-blue" style="width:100%; padding:10px; margin-top:20px;" onclick="simulateDepositSuccess()">
+                複製地址並完成充值 (+5,000 USDT)
+            </button>
+        </div>
+    </div>
+
+    <!-- 提幣申請彈窗 (Withdraw Modal with 2FA check) -->
+    <div class="modal-bg" id="withdrawModal">
+        <div class="modal-window">
+            <button class="modal-close" onclick="closeWithdrawModal()">✕</button>
+            <h3 style="font-size:18px; font-weight:700; margin-bottom:10px;">申請資產提現 (MakeBit Withdraw)</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">多簽冷儲存審核，安全撥付：</p>
+            
+            <div class="form-row" style="margin-bottom:10px;">
+                <label>提現幣種</label>
+                <div class="input-group">
+                    <select style="width:100%; border:none; background:transparent; color:var(--text-primary);">
+                        <option>USDT - 泰達幣 (可用: 18,450.00)</option>
+                        <option>BTC - 比特幣 (可用: 0.4500)</option>
+                        <option>ETH - 以太幣 (可用: 3.2000)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-bottom:10px;">
+                <label>提現目標錢包地址</label>
+                <div class="input-group">
+                    <input type="text" placeholder="請輸入提現錢包地址 (如 0x... 或 T...)">
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-bottom:10px;">
+                <label>提現數量</label>
+                <div class="input-group">
+                    <input type="number" id="withdrawAmountInput" value="1000">
+                    <span class="unit">USDT</span>
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-bottom:16px;">
+                <label><span>Google 雙重身分驗證碼 (6位數 2FA)</span></label>
+                <div class="input-group">
+                    <input type="text" id="withdraw2FACode" placeholder="請輸入 6 位數 2FA 動態驗證碼">
+                </div>
+            </div>
+
+            <button class="btn-action-blue" style="width:100%; padding:10px;" onclick="simulateWithdrawSuccess()">
+                通過 2FA 驗證並確認提現
+            </button>
+        </div>
+    </div>
+
+    <!-- API 金鑰建立視窗 (API Key Modal) -->
+    <div class="modal-bg" id="apiKeyModal">
+        <div class="modal-window">
+            <button class="modal-close" onclick="closeApiKeyModal()">✕</button>
+            <h3 style="font-size:18px; font-weight:700; margin-bottom:10px;">建立 MakeBit 程式化 API 金鑰</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">金鑰用於量化高頻撮合與交易執行：</p>
+            
+            <div class="form-row" style="margin-bottom:12px;">
+                <label>API 備註名稱</label>
+                <div class="input-group">
+                    <input type="text" value="MakeBit_Grid_Trading_Bot_01">
+                </div>
+            </div>
+
+            <div class="form-row" style="margin-bottom:14px;">
+                <label>權限配置</label>
+                <div style="display:flex; gap:16px; font-size:12px; margin-top:4px;">
+                    <label><input type="checkbox" checked disabled> 讀取行情</label>
+                    <label><input type="checkbox" checked> 下單交易</label>
+                    <label><input type="checkbox"> 提現權限 (需 IP 白名單)</label>
+                </div>
+            </div>
+
+            <div style="background:var(--bg-input); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:12px; font-family:var(--font-mono); font-size:12px; word-break:break-all;">
+                <div><strong>API Key:</strong> mb_live_key_99812401827401</div>
+                <div style="margin-top:4px; color:var(--blue);"><strong>Secret Key:</strong> sec_makebit_88899a1b2c3d4e5f60</div>
+            </div>
+
+            <button class="btn-action-blue" style="width:100%; padding:10px; margin-top:16px;" onclick="closeApiKeyModal(); showToast('API Key 建立成功！已同步至 MakeBit 撮合白名單');">
+                我已妥善備份 API 金鑰
+            </button>
+        </div>
+    </div>
+
+    <!-- 幣種百科查詢詳情彈窗 -->
+    <div class="modal-bg" id="coinDetailModal">
+        <div class="modal-window">
+            <button class="modal-close" onclick="closeCoinDetailModal()">✕</button>
+            <h3 id="modalCoinTitle" style="font-size:18px; font-weight:800; margin-bottom:10px;">幣種詳情內容查詢</h3>
+            <div id="modalCoinContent" style="font-size:13px; color:var(--text-secondary); line-height:1.7;"></div>
+            <div style="margin-top:20px; text-align:right;">
+                <button class="btn-action-blue" style="padding:6px 16px;" onclick="closeCoinDetailModal()">關閉內容</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 即時反饋 Toast 通知 -->
+    <div class="toast" id="liveToast">
+        <span id="toastIcon" style="color:var(--green); font-size:16px;">✔</span>
+        <span id="toastMessage">委託單已成功送至撮合引擎！</span>
+    </div>
+
+    <!-- 核心互動邏輯腳本 (JavaScript Engine) -->
+    <script>
+        const coinData = {
+            'BTC/USDT': { price: 66580.20, change: '+3.14%', high: '67,200.00', low: '64,510.00', vol: '24,850.40', base: 'BTC' },
+            'ETH/USDT': { price: 3548.60, change: '+2.25%', high: '3,610.00', low: '3,420.00', vol: '120,400.00', base: 'ETH' },
+            'USDT/USD': { price: 1.0001, change: '+0.01%', high: '1.0005', low: '0.9998', vol: '1,500,000.00', base: 'USDT' },
+            'SOL/USDT': { price: 156.40, change: '+5.80%', high: '161.00', low: '146.50', vol: '890,200.00', base: 'SOL' },
+            'BNB/USDT': { price: 587.20, change: '-0.35%', high: '595.00', low: '581.00', vol: '210,000.00', base: 'BNB' }
+        };
+
+        const coinDetails = {
+            'BTC': `
+                <p><strong>創立年份：</strong> 2008 年 (中本聰發布白皮書)</p>
+                <p><strong>總發行量：</strong> 21,000,000 枚 (固定硬頂，抗通膨數位黃金)</p>
+                <p><strong>共識機制：</strong> 工作量證明 (Proof of Work - SHA-256)</p>
+                <p><strong>核心定位：</strong> 去中心化價值儲存媒介、全球機構儲備資產。</p>
+                <p><strong>機構託管評級：</strong> AAA 級 (MakeBit 多重簽名冷儲存保護)</p>
+            `,
+            'ETH': `
+                <p><strong>創立年份：</strong> 2015 年 (Vitalik Buterin 主導發布)</p>
+                <p><strong>共識機制：</strong> 權益證明 (Proof of Stake - 節能 99.95%)</p>
+                <p><strong>核心定位：</strong> 智慧合約平台標準、Web3 去中心化應用基礎設施。</p>
+                <p><strong>機構質押年化收益：</strong> 3.8% ~ 5.2% 穩健回報</p>
+            `,
+            'USDT': `
+                <p><strong>創立年份：</strong> 2014 年 (Tether Operations Limited 發行)</p>
+                <p><strong>資產錨定：</strong> 1 USDT = 1 USD (100% 由現金與美國短期國債儲備支撐)</p>
+                <p><strong>支援主網：</strong> TRC20, ERC20, Arbitrum, Solana 等</p>
+                <p><strong>審計報告：</strong> 由頂級第三方審計機構定期出具儲備保證報告</p>
+            `
+        };
+
+        let currentActivePair = 'BTC/USDT';
+        let currentCoinPrice = coinData[currentActivePair].price;
+        let currentTradingMode = 'spot'; // 'spot' or 'margin'
+        let currentOrderSide = 'buy';
+        let currentOrderMode = 'limit';
+        let userUSDTBalance = 18450.00;
+        let userBTCBalance = 0.4500;
+        let openOrdersTotal = 2;
+        let is2FAActive = true;
+
+        // 1. 深灰色與白色主題切換 (科技風雙色)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', nextTheme);
+
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+
+            if (nextTheme === 'light') {
+                icon.innerText = '🌙';
+                text.innerText = '深色科技風';
+                showToast('已切換為：白色明亮科技風主題');
+            } else {
+                icon.innerText = '☀️';
+                text.innerText = '白色主題';
+                showToast('已切換為：黑色/深灰色經典專業主題');
             }
-          });
-        }, { threshold: .12 });
-        revealItems.forEach(item => observer.observe(item));
-      }
-    })();
-  </script>
+        }
+
+        // 2. 切換現貨與槓桿交易模式
+        function setTradingMode(mode) {
+            currentTradingMode = mode;
+            document.getElementById('modeBtnSpot').className = 't-mode-btn' + (mode === 'spot' ? ' active' : '');
+            document.getElementById('modeBtnMargin').className = 't-mode-btn' + (mode === 'margin' ? ' active' : '');
+            
+            const levBadge = document.getElementById('displayLeverageBadge');
+            const levBox = document.getElementById('leverageSelectBox');
+            const estRisk = document.getElementById('marginEstRiskLine');
+            const tag = document.getElementById('marketTypeTag');
+            const orderTitle = document.getElementById('orderPanelTitle');
+
+            if (mode === 'margin') {
+                levBadge.innerText = '槓桿 5X';
+                levBadge.className = 'margin-info-tag';
+                levBox.style.display = 'flex';
+                estRisk.style.display = 'flex';
+                tag.innerText = '槓桿行情 10X';
+                orderTitle.innerText = '槓桿買賣下單 (借貸保證金)';
+                showToast('已切換至【槓桿交易模式 (支援3X~10X)】');
+            } else {
+                levBadge.innerText = '現貨 1X';
+                levBadge.className = 'margin-info-tag';
+                levBox.style.display = 'none';
+                estRisk.style.display = 'none';
+                tag.innerText = '現貨行情';
+                orderTitle.innerText = '現貨買賣下單';
+                showToast('已切換至【現貨交易模式】');
+            }
+            updateOrderSummary();
+        }
+
+        function updateLeverageInfo() {
+            const mult = document.getElementById('leverageMultiplier').value;
+            document.getElementById('displayLeverageBadge').innerText = `槓桿 ${mult}X`;
+            const price = parseFloat(document.getElementById('inputOrderPrice').value) || currentCoinPrice;
+            const liq = (price * (1 - 1 / mult * 0.85)).toFixed(2);
+            document.getElementById('estLiqPrice').innerText = `${parseFloat(liq).toLocaleString()} USDT`;
+            showToast(`槓桿倍數已調整為：${mult}X`);
+        }
+
+        // 動態渲染盤口深度掛單
+        function renderOrderBook(price) {
+            const asksEl = document.getElementById('orderbookAsks');
+            const bidsEl = document.getElementById('orderbookBids');
+            if (!asksEl || !bidsEl) return;
+            
+            const askOffsets = [0.0009, 0.0006, 0.0003, 0.00015];
+            const askQtys = [0.412, 0.850, 1.240, 0.315];
+            const askBars = [45, 70, 90, 30];
+            
+            let asksHtml = '';
+            askOffsets.forEach((off, idx) => {
+                const p = parseFloat((price * (1 + off)).toFixed(2));
+                const pStr = p.toLocaleString(undefined, {minimumFractionDigits: 2});
+                const total = (p * askQtys[idx] / 1000).toFixed(1) + 'K';
+                asksHtml += `
+                    <div class="ob-row sell" onclick="fillPrice(${p})">
+                        <span class="price">${pStr}</span><span>${askQtys[idx].toFixed(3)}</span><span>${total}</span><div class="bar" style="width: ${askBars[idx]}%;"></div>
+                    </div>`;
+            });
+            asksEl.innerHTML = asksHtml;
+
+            const bidOffsets = [0.00015, 0.0003, 0.0006, 0.0009];
+            const bidQtys = [0.620, 1.105, 0.480, 1.890];
+            const bidBars = [55, 85, 40, 95];
+            
+            let bidsHtml = '';
+            bidOffsets.forEach((off, idx) => {
+                const p = parseFloat((price * (1 - off)).toFixed(2));
+                const pStr = p.toLocaleString(undefined, {minimumFractionDigits: 2});
+                const total = (p * bidQtys[idx] / 1000).toFixed(1) + 'K';
+                bidsHtml += `
+                    <div class="ob-row buy" onclick="fillPrice(${p})">
+                        <span class="price">${pStr}</span><span>${bidQtys[idx].toFixed(3)}</span><span>${total}</span><div class="bar" style="width: ${bidBars[idx]}%;"></div>
+                    </div>`;
+            });
+            bidsEl.innerHTML = bidsHtml;
+        }
+
+        // 3. 切換幣對 (Switch Trading Pair)
+        function switchPair(pair) {
+            if (!coinData[pair]) return;
+            currentActivePair = pair;
+            const data = coinData[pair];
+            currentCoinPrice = data.price;
+
+            document.getElementById('displayPair').innerText = pair;
+            document.getElementById('summaryPrice').innerText = data.price.toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('summaryChange').innerText = data.change;
+            document.getElementById('summaryHigh').innerText = data.high;
+            document.getElementById('summaryLow').innerText = data.low;
+            document.getElementById('summaryVol').innerText = data.vol;
+            document.getElementById('obCurrentPrice').innerText = `${data.price.toLocaleString(undefined, {minimumFractionDigits: 2})} ↑`;
+
+            document.getElementById('inputOrderPrice').value = data.price;
+            document.getElementById('orderAmountCoin').innerText = data.base;
+            
+            updateSideButtonLabels();
+            calcOrderTotal();
+            renderOrderBook(data.price);
+
+            document.querySelectorAll('.market-row').forEach(row => {
+                if (row.getAttribute('data-symbol') === data.base) {
+                    row.classList.add('active');
+                } else {
+                    row.classList.remove('active');
+                }
+            });
+
+            showToast(`MakeBit 已切換至 ${pair} 實時交易行情`);
+        }
+
+        function toggleFav(e, el) {
+            e.stopPropagation();
+            el.classList.toggle('active');
+            el.innerText = el.classList.contains('active') ? '★' : '☆';
+            showToast(el.classList.contains('active') ? '已加入自選交易對' : '已從自選清單移除');
+        }
+
+        // 4. 切換盤口深度與即時成交
+        function switchBookTab(tab) {
+            document.getElementById('tabBtnOrderBook').className = 'book-tab-btn' + (tab === 'book' ? ' active' : '');
+            document.getElementById('tabBtnTrades').className = 'book-tab-btn' + (tab === 'trades' ? ' active' : '');
+            document.getElementById('viewBookPane').style.display = tab === 'book' ? 'flex' : 'none';
+            document.getElementById('viewTradesPane').style.display = tab === 'trades' ? 'flex' : 'none';
+        }
+
+        // 5. 切換下單模式 (Limit / Market / Stop-Limit)
+        function setOrderMode(mode) {
+            currentOrderMode = mode;
+            document.getElementById('tabLimit').className = 'order-type-btn' + (mode === 'limit' ? ' active' : '');
+            document.getElementById('tabMarket').className = 'order-type-btn' + (mode === 'market' ? ' active' : '');
+            document.getElementById('tabStop').className = 'order-type-btn' + (mode === 'stop' ? ' active' : '');
+
+            const priceRow = document.getElementById('orderPriceRow');
+            const stopRow = document.getElementById('stopTriggerRow');
+
+            if (mode === 'market') {
+                priceRow.style.display = 'none';
+                stopRow.style.display = 'none';
+            } else if (mode === 'stop') {
+                priceRow.style.display = 'flex';
+                stopRow.style.display = 'flex';
+            } else {
+                priceRow.style.display = 'flex';
+                stopRow.style.display = 'none';
+            }
+            updateOrderSummary();
+            calcOrderTotal();
+        }
+
+        // 6. 切換買賣方向 (Buy / Sell)
+        function setSide(side) {
+            currentOrderSide = side;
+            const btnBuy = document.getElementById('btnSideBuy');
+            const btnSell = document.getElementById('btnSideSell');
+            const submitBtn = document.getElementById('btnSubmitOrder');
+            const availLabel = document.getElementById('availBalanceLabel');
+            const base = coinData[currentActivePair].base;
+
+            if (side === 'buy') {
+                btnBuy.className = 'side-btn buy-active';
+                btnSell.className = 'side-btn';
+                submitBtn.style.background = 'var(--green)';
+                availLabel.innerText = `可用: ${userUSDTBalance.toLocaleString(undefined, {minimumFractionDigits: 2})} USDT`;
+            } else {
+                btnBuy.className = 'side-btn';
+                btnSell.className = 'side-btn sell-active';
+                submitBtn.style.background = 'var(--red)';
+                availLabel.innerText = `可用: ${userBTCBalance.toFixed(4)} ${base}`;
+            }
+            updateSideButtonLabels();
+            calcOrderTotal();
+        }
+
+        function updateSideButtonLabels() {
+            const base = coinData[currentActivePair].base;
+            const isMargin = currentTradingMode === 'margin';
+            document.getElementById('btnSideBuy').innerText = isMargin ? `買入 / 做多 ${base}` : `買入 ${base}`;
+            document.getElementById('btnSideSell').innerText = isMargin ? `賣出 / 做空 ${base}` : `賣出 ${base}`;
+            const submitBtn = document.getElementById('btnSubmitOrder');
+            submitBtn.innerText = `${currentOrderSide === 'buy' ? '買入' : '賣出'} ${base}`;
+        }
+
+        function updateOrderSummary() {
+            const modeText = currentOrderMode === 'market' ? '市價單' : (currentOrderMode === 'stop' ? '止盈止損單' : '限價單');
+            const typeText = currentTradingMode === 'margin' ? '槓桿模式' : '現貨模式';
+            document.getElementById('summaryOrderType').innerText = `${typeText}・${modeText}`;
+        }
+
+        function fillPrice(price) {
+            document.getElementById('inputOrderPrice').value = price;
+            calcOrderTotal();
+        }
+
+        function applyPercent(pct) {
+            if (currentOrderSide === 'buy') {
+                const targetUSDT = userUSDTBalance * pct;
+                const price = currentOrderMode === 'market' ? currentCoinPrice : (parseFloat(document.getElementById('inputOrderPrice').value) || currentCoinPrice);
+                const amount = (targetUSDT / price).toFixed(4);
+                document.getElementById('inputOrderAmount').value = amount;
+            } else {
+                const amount = (userBTCBalance * pct).toFixed(4);
+                document.getElementById('inputOrderAmount').value = amount;
+            }
+            calcOrderTotal();
+        }
+
+        function calcOrderTotal() {
+            const price = currentOrderMode === 'market' ? currentCoinPrice : (parseFloat(document.getElementById('inputOrderPrice').value) || 0);
+            const amount = parseFloat(document.getElementById('inputOrderAmount').value) || 0;
+            const total = (price * amount).toFixed(2);
+            document.getElementById('summaryOrderTotal').innerText = `${parseFloat(total).toLocaleString(undefined, {minimumFractionDigits: 2})} USDT`;
+        }
+
+        // 7. 提交下單 (Execute Order)
+        function executeSubmitOrder() {
+            const price = currentOrderMode === 'market' ? currentCoinPrice : parseFloat(document.getElementById('inputOrderPrice').value);
+            const amount = parseFloat(document.getElementById('inputOrderAmount').value);
+            const base = coinData[currentActivePair].base;
+
+            if (!amount || amount <= 0) {
+                showToast('請輸入有效的委託數量！', '⚠️');
+                return;
+            }
+
+            const total = price * amount;
+            const sideText = currentOrderSide === 'buy' ? '買入' : '賣出';
+            const modeText = currentOrderMode === 'market' ? '市價' : (currentOrderMode === 'stop' ? '止盈止損' : '限價');
+            const tradingType = currentTradingMode === 'margin' ? '槓桿' : '現貨';
+
+            if (currentOrderSide === 'buy') {
+                if (total > userUSDTBalance) {
+                    showToast('可用資金不足，請先充幣入金！', '⚠️');
+                    return;
+                }
+                userUSDTBalance -= total;
+            } else {
+                if (amount > userBTCBalance) {
+                    showToast(`可用 ${base} 餘額不足！`, '⚠️');
+                    return;
+                }
+                userBTCBalance -= amount;
+            }
+
+            const tbody = document.getElementById('openOrdersTableBody');
+            const newRow = document.createElement('tr');
+            const now = new Date();
+            const timeStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+            
+            newRow.innerHTML = `
+                <td>${timeStr}</td>
+                <td><strong>${currentActivePair}</strong></td>
+                <td>${modeText} (${tradingType})</td>
+                <td><span style="color:${currentOrderSide === 'buy' ? 'var(--green)' : 'var(--red)'}; font-weight:700;">${sideText}</span></td>
+                <td>${price.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                <td>${amount.toFixed(4)} ${base}</td>
+                <td>0.0000 ${base}</td>
+                <td>${amount.toFixed(4)} ${base}</td>
+                <td><span class="status-pill status-open">待撮合</span></td>
+                <td><button class="btn-cancel-order" onclick="cancelOrder(this, ${total.toFixed(2)}, 'USDT')">撤銷訂單</button></td>
+            `;
+            tbody.prepend(newRow);
+
+            openOrdersTotal++;
+            document.getElementById('openOrdersCount').innerText = openOrdersTotal;
+            updateAssetUI();
+
+            showToast(`委託成功！[${tradingType}・${modeText}] ${sideText} ${amount} ${base} @ ${price} USDT`);
+        }
+
+        // 8. 撤銷訂單 (Cancel Order)
+        function cancelOrder(btn, refundVal, coin) {
+            const row = btn.closest('tr');
+            row.remove();
+            openOrdersTotal = Math.max(0, openOrdersTotal - 1);
+            document.getElementById('openOrdersCount').innerText = openOrdersTotal;
+
+            if (coin === 'USDT') {
+                userUSDTBalance += parseFloat(refundVal);
+            } else {
+                userBTCBalance += parseFloat(refundVal);
+            }
+            updateAssetUI();
+            showToast(`訂單已成功撤銷，保證金 ${refundVal} ${coin} 已退還至可用餘額`);
+        }
+
+        function updateAssetUI() {
+            document.getElementById('headerTotalAsset').innerText = `${userUSDTBalance.toLocaleString(undefined, {minimumFractionDigits: 2})} USDT`;
+            document.getElementById('assetTotalVal').innerText = userUSDTBalance.toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('assetAvailUSDT').innerText = userUSDTBalance.toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('row-usdt-avail').innerText = userUSDTBalance.toLocaleString(undefined, {minimumFractionDigits: 2});
+            const btcRow = document.getElementById('row-btc-avail');
+            if (btcRow) btcRow.innerText = userBTCBalance.toFixed(4);
+            const base = coinData[currentActivePair].base;
+            if (currentOrderSide === 'buy') {
+                document.getElementById('availBalanceLabel').innerText = `可用: ${userUSDTBalance.toLocaleString(undefined, {minimumFractionDigits: 2})} USDT`;
+            } else {
+                document.getElementById('availBalanceLabel').innerText = `可用: ${userBTCBalance.toFixed(4)} ${base}`;
+            }
+        }
+
+        // 9. 切換底部工作台標籤
+        function switchWsTab(tab) {
+            const views = ['orders', 'history', 'assets', 'fee', 'api', 'security', 'content'];
+            views.forEach(v => {
+                const el = document.getElementById('view' + v.charAt(0).toUpperCase() + v.slice(1));
+                const btn = document.getElementById('tabBtn' + v.charAt(0).toUpperCase() + v.slice(1));
+                if (el) el.style.display = (v === tab) ? 'block' : 'none';
+                if (btn) btn.className = 'ws-tab-btn' + (v === tab ? ' active' : '');
+            });
+            const ws = document.getElementById('workspace');
+            if (ws && window.scrollY < 300) {
+                ws.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 10. 2FA 安全開關
+        function toggle2FAState() {
+            is2FAActive = !is2FAActive;
+            const badge = document.getElementById('badge2FAStatus');
+            const tag = document.getElementById('tag2FAState');
+            const btn = document.getElementById('btnToggle2FA');
+
+            if (is2FAActive) {
+                badge.innerText = '2FA 已保護';
+                tag.innerText = '已啟用';
+                tag.className = 'status-pill status-filled';
+                btn.innerText = '停用 2FA 驗證防護';
+                showToast('Google Authenticator 雙重身分驗證 (2FA) 已成功啟用！');
+            } else {
+                badge.innerText = '2FA 未啟用';
+                tag.innerText = '未啟用';
+                tag.className = 'status-pill status-open';
+                btn.innerText = '啟用 2FA 驗證防護';
+                showToast('注意：2FA 雙重驗證已暫時關閉！', '⚠️');
+            }
+        }
+
+        // 11. 搜尋過濾
+        function filterMarketList() {
+            const query = document.getElementById('coinSearchInput').value.toUpperCase();
+            const items = document.querySelectorAll('#marketListContainer .market-row');
+            items.forEach(item => {
+                const sym = item.getAttribute('data-symbol') || '';
+                item.style.display = sym.includes(query) ? 'flex' : 'none';
+            });
+        }
+
+        function filterCoinInfo() {
+            const q = document.getElementById('infoSearchInput').value.toUpperCase();
+            const cards = document.querySelectorAll('#infoGridContainer .info-card');
+            cards.forEach(card => {
+                card.style.display = card.innerText.toUpperCase().includes(q) ? 'block' : 'none';
+            });
+        }
+
+        // 12. 彈窗管理
+        function openDepositModal() { document.getElementById('depositModal').classList.add('active'); }
+        function closeDepositModal() { document.getElementById('depositModal').classList.remove('active'); }
+        function openWithdrawModal() { document.getElementById('withdrawModal').classList.add('active'); }
+        function closeWithdrawModal() { document.getElementById('withdrawModal').classList.remove('active'); }
+        function openApiKeyModal() { document.getElementById('apiKeyModal').classList.add('active'); }
+        function closeApiKeyModal() { document.getElementById('apiKeyModal').classList.remove('active'); }
+
+        function simulateDepositSuccess() {
+            closeDepositModal();
+            userUSDTBalance += 5000;
+            updateAssetUI();
+            showToast('充幣成功！+5,000 USDT 已即時入帳至您的 MakeBit 帳戶！');
+        }
+
+        function simulateWithdrawSuccess() {
+            const code = document.getElementById('withdraw2FACode').value.trim();
+            if (is2FAActive && (!code || code.length < 6)) {
+                showToast('安全提示：請輸入 6 位數 2FA 雙重動態驗證碼！', '⚠️');
+                return;
+            }
+            closeWithdrawModal();
+            const amount = parseFloat(document.getElementById('withdrawAmountInput').value) || 0;
+            if (amount > userUSDTBalance) {
+                showToast('提現數量超過可用餘額！', '⚠️');
+                return;
+            }
+            userUSDTBalance -= amount;
+            updateAssetUI();
+            showToast(`提幣申請已送出！2FA 驗證通過，${amount} USDT 正在多重簽名廣播`);
+        }
+
+        function openCoinDetailModal(coin) {
+            const modal = document.getElementById('coinDetailModal');
+            document.getElementById('modalCoinTitle').innerText = `${coin} 相關內容與技術白皮書查詢`;
+            document.getElementById('modalCoinContent').innerHTML = coinDetails[coin] || '<p>查無相關內容。</p>';
+            modal.classList.add('active');
+        }
+
+        function closeCoinDetailModal() { document.getElementById('coinDetailModal').classList.remove('active'); }
+
+        function changeInterval(intStr, btn) {
+            document.querySelectorAll('.interval-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            showToast(`已切換 K 線週期至：${intStr}`);
+        }
+
+        function toggleIndicator(ind) {
+            showToast(`技術指標 ${ind} 參數已套用`);
+        }
+
+        function showToast(msg, icon = '✔') {
+            const toast = document.getElementById('liveToast');
+            document.getElementById('toastMessage').innerText = msg;
+            document.getElementById('toastIcon').innerText = icon;
+            toast.classList.add('show');
+            clearTimeout(window.tTimer);
+            window.tTimer = setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
+        // 13. 即時行情模擬與撮合成交串流
+        setInterval(() => {
+            const delta = (Math.random() * 24 - 11.8);
+            currentCoinPrice = parseFloat((currentCoinPrice + delta).toFixed(2));
+            const formatted = currentCoinPrice.toLocaleString(undefined, {minimumFractionDigits: 2});
+            
+            document.getElementById('summaryPrice').innerText = formatted;
+            const activeBase = coinData[currentActivePair].base;
+            const tickItem = document.getElementById('tick-' + activeBase);
+            if (tickItem) tickItem.innerText = formatted;
+            document.getElementById('obCurrentPrice').innerText = `${formatted} ${delta >= 0 ? '↑' : '↓'}`;
+            document.getElementById('obCurrentPrice').style.color = delta >= 0 ? 'var(--green)' : 'var(--red)';
+
+            const feed = document.getElementById('marketTradesFeed');
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+            const tradeRow = document.createElement('div');
+            tradeRow.className = 'trade-row';
+            tradeRow.innerHTML = `
+                <span style="color:var(--text-muted);">${timeStr}</span>
+                <span style="color:${delta >= 0 ? 'var(--green)' : 'var(--red)'}; font-weight:700;">${formatted}</span>
+                <span>${(Math.random() * 0.8 + 0.05).toFixed(4)}</span>
+            `;
+            feed.prepend(tradeRow);
+            if (feed.children.length > 25) feed.removeChild(feed.lastChild);
+        }, 3000);
+
+        calcOrderTotal();
+        renderOrderBook(currentCoinPrice);
+    </script>
 </body>
 </html>
