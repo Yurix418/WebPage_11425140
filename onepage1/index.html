@@ -1124,6 +1124,26 @@
             font-size: 18px;
         }
 
+        /* 平台導覽視覺：使用專案內既有交易情境圖片，不依賴外部資源 */
+        .terminal-intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 28px;
+            max-width: 1600px;
+            margin: 18px auto 0;
+            padding: 18px 24px;
+            border: 1px solid var(--border-color);
+            background: linear-gradient(100deg, var(--bg-surface), var(--bg-card));
+            overflow: hidden;
+        }
+
+        .terminal-intro-copy { max-width: 660px; }
+        .terminal-intro-kicker { margin: 0 0 8px; color: var(--blue); font: 700 11px var(--font-mono); letter-spacing: .12em; }
+        .terminal-intro h1 { margin: 0 0 9px; font-size: clamp(22px, 2.3vw, 34px); letter-spacing: -.03em; }
+        .terminal-intro p:last-child { margin: 0; color: var(--text-secondary); font-size: 13px; line-height: 1.7; }
+        .terminal-intro img { display: block; flex: 0 0 400px; width: 400px; height: 300px; object-fit: cover; border: 1px solid var(--border-light); border-radius: var(--radius-md); }
+
         /* 響應式佈局 (Mobile & Tablet) */
         @media (max-width: 1400px) {
             .trade-layout { grid-template-columns: 220px 1fr 260px 300px; }
@@ -1134,6 +1154,12 @@
             .grid-panel { border-right: none; border-bottom: 1px solid var(--border-color); min-height: 380px; }
             .asset-overview-cards, .info-grid, .security-grid, .api-layout, .fee-tier-grid { grid-template-columns: 1fr; }
             .nav-menu { display: none; }
+            .terminal-intro { margin: 12px; }
+        }
+
+        @media (max-width: 720px) {
+            .terminal-intro { display: block; padding: 18px; }
+            .terminal-intro img { width: 100%; height: auto; max-height: 300px; margin-top: 16px; }
         }
     </style>
 </head>
@@ -1227,6 +1253,15 @@
             <span>● MakeBit 撮合引擎連線延遲 &lt; 1.0ms</span>
         </div>
     </div>
+
+    <section class="terminal-intro" aria-labelledby="terminalIntroTitle">
+        <div class="terminal-intro-copy">
+            <p class="terminal-intro-kicker">MAKEBIT PRO TERMINAL · ENGINE LATENCY &lt; 1.0MS</p>
+            <h1 id="terminalIntroTitle">為瞬息萬變的市場，打造專業交易視野。</h1>
+            <p>在同一個工作區掌握即時行情、技術走勢、深度盤口與資產安全設定；所有示範資料均以本機模擬方式運作。</p>
+        </div>
+        <img src="images/hero.jpg" width="400" height="300" alt="交易者使用多螢幕檢視加密貨幣市場走勢">
+    </section>
 
     <!-- 核心交易操作區 (Trading Layout) -->
     <main class="trade-layout">
